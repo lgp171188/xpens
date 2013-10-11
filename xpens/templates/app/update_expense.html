@@ -1,25 +1,14 @@
-o{% extends "base.html" %}
+{% extends "base.html" %}
 
 {% block page_title %}
-Xpens - New Expense
-{% endblock %}
-
-{% block custom_css %}
-<style type="text/css">
-  td, th {
-  padding: 10px;
-  }
-</style>
+Xpens - Update Expense
 {% endblock %}
 
 {% block content %}
-
 {% include "app/nav.html" %}
-
-{% with form_title="New Expense" %}
+{% with form_title="Update Expense" %}
 {% include "app/form.html" %}
 {% endwith %}
-
 {% endblock %}
 
 {% block custom_js %}
@@ -32,4 +21,4 @@ Xpens - New Expense
     $('#expenses').addClass('active');
   });
 </script>
-{% endblock custom_js %}
+{% endblock %}

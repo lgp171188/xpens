@@ -16,15 +16,11 @@ Xpens - Expenses
 {% endblock %}
 
 {% block content %}
-<ul class="nav nav-pills">
-  <li><a href="#">Overview</a></li>
-  <li class="active"><a href="{% url 'list_expenses' %}">Expenses</a></li>
-  <li><a href="{% url 'list_categories' %}">Categories</a></li>
-</ul>
-<br />
+{% include "app/nav.html" %}
 <div class="row">
   <div class="col-md-8">
     <h4>All Expenses</h4>
+    {% include "app/messages.html" %}
     <table class="table">
       <thead>
 	<tr>
@@ -32,6 +28,7 @@ Xpens - Expenses
 	  <th>Description</th>
 	  <th>Category</th>
 	  <th>Amount</th>
+	  <th>Actions</th>
 	</tr>
       </thead>
       <tbody>
@@ -41,10 +38,11 @@ Xpens - Expenses
 	  <td>{{ expense.description }}</td>
 	  <td>{{ expense.category }}</td>
 	  <td>{{ expense.amount }}</td>
+	  <td><a href="{% url 'update_expense' expense.id %}">Edit</a></td>
 	</tr>
 	{% empty %}
 	<tr>
-	  <td colspan="4">
+	  <td colspan="5">
 	    <span style="text-align:center;">No expenses saved</span>
 	  </td>
 	</tr>
@@ -57,4 +55,11 @@ Xpens - Expenses
     <a href="{% url 'new_expense' %}" class="btn btn-primary">New Expense</a>
   </div>
 </div>
+{% endblock %}
+{% block custom_js %}
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#expenses').addClass('active');
+  });
+</script>
 {% endblock %}

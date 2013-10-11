@@ -16,20 +16,17 @@ Xpens - Categories
 {% endblock %}
 
 {% block content %}
-<ul class="nav nav-pills">
-  <li><a href="#">Overview</a></li>
-  <li><a href="{% url 'list_expenses' %}">Expenses</a></li>
-  <li class="active"><a href="{% url 'list_categories' %}">Categories</a></li>
-</ul>
-<br />
+{% include "app/nav.html" %}
 <div class="row">
   <div class="col-md-8">
     <h4>All Categories</h4>
+    {% include "app/messages.html" %}
     <table class="table">
       <thead>
 	<tr>
 	  <th>S.No.</th>
 	  <th>Name</th>
+	  <th>Actions</th>
 	</tr>
       </thead>
       <tbody>
@@ -37,10 +34,11 @@ Xpens - Categories
 	<tr>
 	  <td>{{ forloop.counter }}</td>
 	  <td>{{ category.name }}</td>
+	  <td><a href="{% url 'update_category' category.id %}">Edit</a></td>
 	</tr>
 	{% empty %}
 	<tr>
-	  <td colspan="4">
+	  <td colspan="3">
 	    <span style="text-align:center;">No categories saved</span>
 	  </td>
 	</tr>
@@ -53,4 +51,11 @@ Xpens - Categories
     <a href="{% url 'new_category' %}" class="btn btn-primary">New Category</a>
   </div>
 </div>
+{% endblock %}
+{% block custom_js %}
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#categories').addClass('active');
+  });
+</script>
 {% endblock %}
