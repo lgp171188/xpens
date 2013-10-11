@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block page_title %}
+Xpens - Home
+{% endblock %}
+{% block content %}
+<ul class="nav nav-pills">
+  <li class="active"><a href="#">Overview</a></li>
+  <li><a href="{% url 'list_expenses' %}">Expenses</a></li>
+  <li><a href="{% url 'list_categories' %}">Categories</a></li>
+</ul>
+<br />
+
+{% endblock %}

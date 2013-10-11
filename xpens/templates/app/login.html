@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block page_title %}
+Xpens - Login
+{% endblock %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block custom_css %}
+<style type="text/css">
+  #login-form {
+    width: 15%;
+    margin: 10px auto;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-offset-4 col-md-4">
+    <form role="form" action="." method="post">
+      {% csrf_token %}
+      <fieldset>
+	<legend>Xpens - Login</legend>
+	{% if form.non_field_errors %}
+	<p class="error">
+	  {% for error in form.non_field_errors %}
+	  {{ error }}
+	  {% endfor %}
+	</p>
+	{% endif %}
+	{% for field in form %}
+	<div class="form-group">
+	  {{ field.label_tag }}
+	  {{ field }}
+	  {% if field.errors %}
+	  <p class="error">
+	    {% for error in field.errors %}
+	    {{ error }}
+	    {% endfor %}
+	  </p>
+	  {% endif %}
+	</div>
+	{% endfor %}
+	<input type="hidden" name="next" value="{{ next }}" />
+	<input type="submit" class="btn btn-default" value="Login" />
+      </fieldset>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block custom_js %}
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('input[type=text]').addClass('form-control');
+    $('input[type=password]').addClass('form-control');
+  });
+</script>
+{% endblock custom_js %}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block page_title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/styles.css" />
+    {% block custom_css %}
+    {% endblock %}
+  </head>
+  <body>
+    <div class="container">
+      {% block header %}
+      <header>
+	<div class="navbar navbar-default navbar-fixed-top navbar-default">
+          <div class="container">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="{% url 'home' %}">Xpens</a>
+            </div>
+            <div class="navbar-collapse collapse navbar-responsive-collapse">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      {% endblock %}
+      <div class="content">
+	{% block content %}
+	{% endblock %}
+      </div>
+      <script src="{{ STATIC_URL }}js/jquery.min.js"></script>
+      <script src="{{ STATIC_URL }}js/script.js"></script>
+    {% block custom_js %}
+    {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+Xpens - New Category
+{% endblock %}
+
+{% block custom_css %}
+<style type="text/css">
+  td, th {
+  padding: 10px;
+  }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<ul class="nav nav-pills">
+  <li><a href="#">Overview</a></li>
+  <li><a href="{% url 'list_expenses' %}">Expenses</a></li>
+  <li class="active"><a href="{% url 'list_categories' %}">Categories</a></li>
+</ul>
+<br />
+
+<div class="row">
+  <div class="col-md-6">
+    <form role="form" action="." method="post" class="form-horizontal">
+      {% csrf_token %}
+      <fieldset>
+	<legend>New Category</legend>
+	{% if form.non_field_errors %}
+	<p class="error">
+	  {% for error in form.non_field_errors %}
+	  {{ error }}
+	  {% endfor %}
+	</p>
+	{% endif %}
+	{% for field in form %}
+	<div class="form-group">
+	  {{ field.label_tag }}
+	  <div class="col-md-6">
+	    {{ field }}
+	  </div>
+	  {% if field.errors %}
+	  <p class="error">
+	    {% for error in field.errors %}
+	    {{ error }}
+	    {% endfor %}
+	  </p>
+	  {% endif %}
+	</div>
+	{% endfor %}
+	<div class="col-md-offset-1 col-lg-6">
+	  <input type="submit" class="btn btn-default" value="Submit" />
+	</div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block custom_js %}
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('input[type=text]').addClass('form-control');
+    $('input[type=password]').addClass('form-control');
+    $('label').addClass('col-md-2 control-label');
+    $('textarea').addClass('form-control');
+  });
+</script>
+{% endblock custom_js %}
