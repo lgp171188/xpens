@@ -126,6 +126,8 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 )
 
+LOGIN_URL = '/login/'
+
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 
 # A sample logging configuration. The only tangible logging
