@@ -15,7 +15,6 @@ class LoginRequiredMixin(object):
 
 class SetCurrentUserInFormMixin(object):
     def form_valid(self, form):
-        import pdb; pdb.set_trace()
         self.object = form.save(commit=False)
         self.object.user = self.request.user
         self.object.save()
