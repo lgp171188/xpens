@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+Xpens - Confirm Category Deletion
+{% endblock %}
+
+{% block content %}
+{% include "app/nav.html" %}
+<div class="row">
+  <div class="col-md-6">
+    <form role="form" action="." method="post">
+      {% csrf_token %}
+      <p>
+        Do you want to the delete the category? All the
+        expenses having this category will be deleted
+      </p>
+      <div>
+        <input type="submit" class="btn btn-danger" value="Delete" />
+        <a href="{% url 'list_categories' %}" class="btn btn-default">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block custom_js %}
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#categories').addClass('active');
+  });
+</script>
+{% endblock custom_js %}

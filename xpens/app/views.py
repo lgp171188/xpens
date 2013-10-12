@@ -61,6 +61,11 @@ class NewExpenseView(LoginRequiredMixin,
     template_name = "app/new_expense.html"
     success_url = reverse_lazy('list_expenses')
     success_message = "New expense successfully added"
+    
+    def get_form(self, form_class):
+        form = super(NewExpenseView, self).get_form(form_class)
+        form.fields['category'].queryset = Category.objects.filter(user=self.request.user)
+        return form
 
 class ListCategoriesView(LoginRequiredMixin, ListView):
     context_object_name = "categories"
@@ -90,6 +95,11 @@ class UpdateExpenseView(LoginRequiredMixin,
     template_name = "app/update_expense.html"
     success_url = reverse_lazy('list_expenses')
     success_message = "Expense updated successfully"
+    
+    def get_form(self, form_class):
+        form = super(UpdateExpenseView, self).get_form(form_class)
+        form.fields['category'].queryset = Category.objects.filter(user=self.request.user)
+        return form
 
 class UpdateCategoryView(LoginRequiredMixin,
                          EditPermissionOwnerUserOnlyMixin,
@@ -113,3 +123,10 @@ class DeleteExpenseView(LoginRequiredMixin,
     model = Expense
     template_name = "app/delete_expense_confirm.html"
     success_url = reverse_lazy('list_expenses')
+
+class DeleteCategoryView(LoginRequiredMixin,
+                        EditPermissionOwnerUserOnlyMixin,
+                        DeleteView):
+    model = Category
+    template_name = "app/delete_category_confirm.html"
+    success_url = reverse_lazy('list_categories')
