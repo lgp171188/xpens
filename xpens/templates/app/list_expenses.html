@@ -38,7 +38,10 @@ Xpens - Expenses
 	  <td>{{ expense.description }}</td>
 	  <td>{{ expense.category }}</td>
 	  <td>{{ expense.amount }}</td>
-	  <td><a href="{% url 'update_expense' expense.id %}">Edit</a></td>
+	  <td>
+            <a href="{% url 'update_expense' expense.id %}">Edit</a>&nbsp;
+            <a href="{% url 'delete_expense' expense.id %}">Delete</a>
+          </td>
 	</tr>
 	{% empty %}
 	<tr>
