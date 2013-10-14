@@ -4,6 +4,11 @@
 Xpens - Update Expense
 {% endblock %}
 
+{% block custom_css %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-datetimepicker.min.css" />
+{% endblock %}
+
+
 {% block content %}
 {% include "app/nav.html" %}
 {% with form_title="Update Expense" %}
@@ -12,6 +17,7 @@ Xpens - Update Expense
 {% endblock %}
 
 {% block custom_js %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
     $('input[type=text]').addClass('form-control');
@@ -19,6 +25,10 @@ Xpens - Update Expense
     $('label').addClass('col-md-2 control-label');
     $('textarea').addClass('form-control');
     $('#expenses').addClass('active');
+    $('#id_date').attr('data-format','dd/MM/yyyy');
+    $('#id_date').datetimepicker({
+      pickTime: false
+    });
   });
 </script>
 {% endblock %}
