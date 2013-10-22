@@ -12,5 +12,5 @@ class Expense(models.Model):
     date = models.DateField()
     amount = models.DecimalField(max_digits=20, decimal_places=2)
     description = models.TextField()
-    category = models.ForeignKey(Category, related_name="expenses")
+    category = models.ForeignKey(Category, related_name="expenses", null=True, on_delete=models.SET_NULL)
     user = models.ForeignKey(User, related_name="expenses")
