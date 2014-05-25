@@ -35,8 +35,8 @@ Xpens - Categories
 	  <td>{{ forloop.counter }}</td>
 	  <td>{{ category.name }}</td>
 	  <td>
-            <a href="{% url 'update_category' category.id %}">Edit</a>&nbsp;
-            <a href="{% url 'delete_category' category.id %}">Delete</a>
+            <span class="glyphicon glyphicon-edit"></span> <a href="{% url 'update_category' category.id %}">Edit</a>&nbsp;
+            <span class="glyphicon glyphicon-remove-circle"></span> <a href="{% url 'delete_category' category.id %}">Delete</a>
           </td>
 	</tr>
 	{% empty %}

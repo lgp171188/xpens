@@ -39,8 +39,8 @@ Xpens - Expenses
 	  <td>{{ expense.category }}</td>
 	  <td>{{ expense.amount }}</td>
 	  <td>
-            <a href="{% url 'update_expense' expense.id %}">Edit</a>&nbsp;
-            <a href="{% url 'delete_expense' expense.id %}">Delete</a>
+            <span class="glyphicon glyphicon-edit"></span> <a href="{% url 'update_expense' expense.id %}">Edit</a>&nbsp;
+            <span class="glyphicon glyphicon-remove-circle"></span> <a href="{% url 'delete_expense' expense.id %}">Delete</a>
           </td>
 	</tr>
 	{% empty %}
@@ -63,6 +63,7 @@ Xpens - Expenses
 <script type="text/javascript">
   $(document).ready(function(){
     $('#expenses').addClass('active');
+    $(".alert").alert();
   });
 </script>
 {% endblock %}
