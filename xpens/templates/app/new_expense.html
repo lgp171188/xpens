@@ -19,6 +19,7 @@ Xpens - New Expense
 {% endblock %}
 
 {% block custom_js %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/moment.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
@@ -27,7 +28,7 @@ Xpens - New Expense
     $('label').addClass('col-md-2 control-label');
     $('textarea').addClass('form-control');
     $('#expenses').addClass('active');
-    $('#id_date').attr('data-format','dd/MM/yyyy');
+    $('#id_date').attr('data-date-format','dd/MM/yyyy');
     $('#id_date').datetimepicker({
       pickTime: false
     });
