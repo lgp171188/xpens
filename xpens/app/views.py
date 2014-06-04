@@ -38,8 +38,8 @@ class LoginView(View):
         else:
             return auth_login(request, *args, **kwargs)
 
-class HomeView(TemplateView,
-               LoginRequiredMixin):
+class HomeView(LoginRequiredMixin,
+               TemplateView):
     template_name = "app/index.html"
 
 class ListExpensesView(LoginRequiredMixin,
