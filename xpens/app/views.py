@@ -47,6 +47,7 @@ class ListExpensesView(LoginRequiredMixin,
     context_object_name = "expenses"
     model = Expense
     template_name = "app/list_expenses.html"
+    paginate_by = 10
 
     def get_queryset(self):
         """Tweak the queryset to include only the expenses
@@ -61,7 +62,7 @@ class NewExpenseView(LoginRequiredMixin,
     template_name = "app/new_expense.html"
     success_url = reverse_lazy('list_expenses')
     success_message = "New expense successfully added"
-    
+
     def get_form(self, form_class):
         form = super(NewExpenseView, self).get_form(form_class)
         form.fields['category'].queryset = Category.objects.filter(user=self.request.user)
@@ -71,6 +72,7 @@ class ListCategoriesView(LoginRequiredMixin, ListView):
     context_object_name = "categories"
     model = Category
     template_name = "app/list_categories.html"
+    paginate_by = 10
 
     def get_queryset(self):
         """Tweak the queryset to include only the categories
@@ -95,7 +97,7 @@ class UpdateExpenseView(LoginRequiredMixin,
     template_name = "app/update_expense.html"
     success_url = reverse_lazy('list_expenses')
     success_message = "Expense updated successfully"
-    
+
     def get_form(self, form_class):
         form = super(UpdateExpenseView, self).get_form(form_class)
         form.fields['category'].queryset = Category.objects.filter(user=self.request.user)

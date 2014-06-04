@@ -49,10 +49,20 @@ Xpens - Expenses
 	    <span style="text-align:center;">No expenses saved</span>
 	  </td>
 	</tr>
-	
+
 	{% endfor %}
       </tbody>
     </table>
+    {% if is_paginated %}
+    <ul class="pager">
+      <li class="previous{% if not page_obj.has_previous %} disabled{% endif %}">
+	<a href="{% if page_obj.has_previous %}{% url 'list_expenses' %}?page={{ page_obj.previous_page_number }}{% else %}#{% endif %}" class="previous">Previous</a>
+      </li>
+      <li class="next{% if not page_obj.has_next %} disabled{% endif %}">
+	<a href="{% if page_obj.has_next %}{% url 'list_expenses' %}?page={{ page_obj.next_page_number }}{% else %}#{% endif %}" class="next">Next</a>
+      </li>
+    </ul>
+    {% endif %}
   </div>
   <div class="col-md-2">
     <a href="{% url 'new_expense' %}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-plus"></span> New Expense</a>
