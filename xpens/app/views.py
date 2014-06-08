@@ -166,5 +166,4 @@ class OverviewView(LoginRequiredMixin,
     def get_context_data(self, **kwargs):
         context = super(OverviewView, self).get_context_data(**kwargs)
         context['data'] = self._get_chart_data()
-        print context
         return context
