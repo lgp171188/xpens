@@ -1,6 +1,8 @@
+from datetime import date
+from django.db.models import Sum
 from django.contrib.auth.views import login as auth_login
 from django.contrib.auth.decorators import login_required
-from django.views.generic import View, TemplateView, ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import View, TemplateView, ListView, CreateView, UpdateView, DeleteView, RedirectView
 from django.utils.decorators import method_decorator
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse_lazy
@@ -39,8 +41,8 @@ class LoginView(View):
             return auth_login(request, *args, **kwargs)
 
 class HomeView(LoginRequiredMixin,
-               TemplateView):
-    template_name = "app/index.html"
+               RedirectView):
+    url = reverse_lazy('overview')
 
 class ListExpensesView(LoginRequiredMixin,
                        ListView):
@@ -132,3 +134,37 @@ class DeleteCategoryView(LoginRequiredMixin,
     model = Category
     template_name = "app/delete_category_confirm.html"
     success_url = reverse_lazy('list_categories')
+
+class OverviewView(LoginRequiredMixin,
+                       ListView):
+    context_object_name = "expenses"
+    model = Expense
+    template_name = "app/overview.html"
+
+    def get_queryset(self):
+        """Tweak the queryset to include only the expenses
+        of the current user."""
+        queryset = Expense.objects.filter(user=self.request.user)[:5]
+        return queryset
+
+    def _get_chart_data(self):
+        today = date.today()
+        current_month_beginning = date(today.year, today.month, 1)
+        expenses = Expense.objects.filter(date__gte=current_month_beginning)
+        categories = [category['category__name'] for category in expenses.values('category__name').distinct()]
+        aggregate = []
+        for category in categories:
+            aggregate.append(int(expenses.filter(category__name=category).aggregate(Sum('amount'))['amount__sum']))
+        data = {
+            'charttype' : 'pieChart',
+            'chartdata' : {'x': categories, 'y': aggregate},
+            'chartcontainer' : 'piechart_container',
+            'extra' : {},
+        }
+        return data
+
+    def get_context_data(self, **kwargs):
+        context = super(OverviewView, self).get_context_data(**kwargs)
+        context['data'] = self._get_chart_data()
+        print context
+        return context

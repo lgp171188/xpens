@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+Xpens - Overview
+{% endblock %}
+
+{% block custom_css %}
+<style type="text/css">
+  td, th {
+  padding: 10px;
+  }
+  table {
+  font-size: 12px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+{% include "app/nav.html" %}
+<div class="row">
+  <div class="col-md-8">
+    <h4>Recent Expenses</h4>
+    {% include "app/messages.html" %}
+    <table class="table">
+      <thead>
+	<tr>
+	  <th>Date</th>
+	  <th>Description</th>
+	  <th>Category</th>
+	  <th>Amount</th>
+	  <th>Actions</th>
+	</tr>
+      </thead>
+      <tbody>
+	{% for expense in expenses %}
+	<tr>
+	  <td>{{ expense.date }}</td>
+	  <td>{{ expense.description }}</td>
+	  <td>{{ expense.category }}</td>
+	  <td>{{ expense.amount }}</td>
+	  <td>
+            <span class="glyphicon glyphicon-edit"></span> <a href="{% url 'update_expense' expense.id %}">Edit</a>&nbsp;
+            <span class="glyphicon glyphicon-remove-circle"></span> <a href="{% url 'delete_expense' expense.id %}">Delete</a>
+          </td>
+	</tr>
+	{% empty %}
+	<tr>
+	  <td colspan="5">
+	    <span style="text-align:center;">No expenses saved</span>
+	  </td>
+	</tr>
+
+	{% endfor %}
+      </tbody>
+    </table>
+    <h3>Where your money is going this month</h3>
+    {% load nvd3_tags %}
+    {% include_chart_jscss %}
+    {% load_chart data.charttype data.chartdata data.chartcontainer data.extra %}
+    {% include_container data.chartcontainer %}
+  </div>
+  <div class="col-md-2">
+    <a href="{% url 'new_expense' %}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-plus"></span> New Expense</a>
+  </div>
+</div>
+{% endblock %}
+{% block custom_js %}
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#overview').addClass('active');
+    $(".alert").alert();
+  });
+</script>
+{% endblock %}

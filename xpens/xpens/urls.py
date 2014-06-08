@@ -8,7 +8,7 @@ from app.views import *
 
 urlpatterns = patterns('',
                        url(r'^$', HomeView.as_view(), name="home"),
-                       url(r'^login/$', LoginView.as_view(), 
+                       url(r'^login/$', LoginView.as_view(),
                            {
                                "template_name" : "app/login.html",
                                "extra_context" : { "next" : reverse_lazy('home') },
@@ -20,6 +20,8 @@ urlpatterns = patterns('',
                                "next_page" : reverse_lazy('login'),
                            },
                            name="logout"),
+                       url(r'^overview/$', OverviewView.as_view(),
+                           name="overview"),
                        url(r'^expenses/$',
                            ListExpensesView.as_view(),
                            name="list_expenses"),
