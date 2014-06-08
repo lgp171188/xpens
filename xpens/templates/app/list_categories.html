@@ -26,7 +26,6 @@ Xpens - Categories
 	<table class="table">
 	  <thead>
 	    <tr>
-	      <th>S.No.</th>
 	      <th>Name</th>
 	      <th>Actions</th>
 	    </tr>
@@ -34,7 +33,6 @@ Xpens - Categories
 	  <tbody>
 	    {% for category in categories %}
 	    <tr>
-	      <td>{{ forloop.counter }}</td>
 	      <td>{{ category.name }}</td>
 	      <td>
 		<span class="glyphicon glyphicon-edit"></span> <a href="{% url 'update_category' category.id %}">Edit</a>&nbsp;
