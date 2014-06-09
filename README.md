@@ -24,7 +24,7 @@ Installation
  - Fill in the missing data in the ```settings.py``` like the database configuration, ```SECRET_KEY``` and save the file.
  - Navigate back to the top-level ```xpens/``` directory and run ```bin/django syncdb```. This will create the tables required by Xpens in the PostgreSQL database. Also create the superuser account when prompted. This account will be used in the Xpens application.
  - Run the Django development server using ```bin/django runserver```. This will start the server on ```locahost:8000```. Note that this works fine only for running Xpens locally to develop on it. Using Django's development server in production is not recommended.
- - Open your favorite browser and navigate to ```localhost:8000``` to access the Xpens application.
+ - Open your favorite browser and navigate to ```localhost:8000``` to access the Xpens application. Login using the user account created before.
 
 ### TODO
  - Document how to deploy Xpens in production.
