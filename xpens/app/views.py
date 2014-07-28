@@ -159,7 +159,10 @@ class OverviewView(LoginRequiredMixin,
             'charttype' : 'pieChart',
             'chartdata' : {'x': categories, 'y': aggregate},
             'chartcontainer' : 'piechart_container',
-            'extra' : {},
+            'extra' : {
+                "height" : "400",
+                "width" : "600",
+            },
         }
         return data
 
