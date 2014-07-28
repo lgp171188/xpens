@@ -144,7 +144,7 @@ class OverviewView(LoginRequiredMixin,
     def get_queryset(self):
         """Tweak the queryset to include only the expenses
         of the current user."""
-        queryset = Expense.objects.filter(user=self.request.user)[:5]
+        queryset = Expense.objects.filter(user=self.request.user).order_by("-date")[:5]
         return queryset
 
     def _get_chart_data(self):
