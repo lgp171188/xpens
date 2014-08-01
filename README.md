@@ -10,7 +10,7 @@ Pre-requisites
  - Python 2.7.x (recommended), will work on 2.6.x as well.
  - PostgreSQL server (any recent version supported by Django)
  - Python headers (needed only while running buildout for building some eggs)
- - PostgreSQL headers (for building psycopg2 egg)
+ - PostgreSQL client library and headers (for building psycopg2 egg)
 
 Installation
 ------------
