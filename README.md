@@ -13,7 +13,8 @@ Pre-requisites
  - Python headers (needed only while running buildout for building some eggs)
  - PostgreSQL client library (libpq) and headers (for building psycopg2 egg)
  - Xpens should work on Mac OS X and Windows provided you know how to tweak
-   them for the above steps. Xpens has been tested on Windows under Cygwin.
+   them for the above requirements. Xpens has been tested on Windows under
+   Cygwin.
 
 Installation
 ------------
