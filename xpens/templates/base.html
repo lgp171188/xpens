@@ -11,23 +11,31 @@
     <div class="container">
       {% block header %}
       <header>
-	<div class="navbar navbar-default navbar-fixed-top navbar-default">
+        <div class="navbar navbar-default navbar-fixed-top navbar-default">
           <div class="container">
             <div class="navbar-header">
               <a class="navbar-brand" href="{% url 'home' %}">Xpens</a>
             </div>
             <div class="navbar-collapse collapse navbar-responsive-collapse">
-              <ul class="nav navbar-nav navbar-right">
-                <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-              </ul>
+              <div class="dropdown nav navbar-nav navbar-right navbar-brand">
+                <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                  {{ user.username }}
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'logout' %}">
+                      <span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
       </header>
       {% endblock %}
       <div class="content">
-	{% block content %}
-	{% endblock %}
+        {% block content %}
+        {% endblock %}
       </div>
       <script src="{{ STATIC_URL }}js/jquery.min.js"></script>
       <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
