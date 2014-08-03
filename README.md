@@ -32,6 +32,8 @@ Installation
  - Copy the ```settings_template.py``` to ```settings.py```.
  - Fill in the missing data in the ```settings.py``` like the database
    configuration, ```SECRET_KEY``` and save the file.
+ - In case you don't want to use psycopg or PostgreSQL, feel free to modify
+   the database engine to whatever suits you and it should work just fine.
  - Navigate back to the top-level ```xpens/``` directory and run
    ```bin/django syncdb```. This will create the tables required by Xpens in
    the PostgreSQL database. Also create the superuser account when prompted.
@@ -42,6 +44,16 @@ Installation
    server in production is not recommended.
  - Open your favorite browser and navigate to ```localhost:8000``` to access
    the Xpens application. Login using the user account created before.
+
+Upgrading
+---------
+
+ - Since Xpens is in active development, there might be database breakages
+   when upgrading between versions from Git since there is no migration
+   framework used. So you will have to manually make the database changes
+   to be able to run Xpens without any errors.
+ - Migration will be implemented after Django 1.7 is released since it has
+   in-built migration.
 
 ### TODO
  - Document how to deploy Xpens in production.
