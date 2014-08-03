@@ -55,6 +55,11 @@ Upgrading
  - Migration will be implemented after Django 1.7 is released since it has
    in-built migration.
 
+Contributing
+------------
+
+Please read CONTRIBUTING.md
+
 ### TODO
  - Document how to deploy Xpens in production.
 
