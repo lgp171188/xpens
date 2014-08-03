@@ -19,6 +19,7 @@ Xpens - Expenses
 {% include "app/nav.html" %}
 <div class="row">
   <div class="col-md-8">
+    {% include "app/messages.html" %}
     <div class="col-md-5" style="padding: 15px;">
       <select class="form-control">
         <option value="">Select a category</option>
@@ -32,57 +33,55 @@ Xpens - Expenses
 </div>
 <div class="row">
   <div class="col-md-8">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      All Expenses {% if category_wise %} in {{ category_name }}{% endif %}
-    </div>
-    <div class="panel-body">
-      {% include "app/messages.html" %}
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Amount</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for expense in expenses %}
-          <tr>
-            <td>{{ expense.date }}</td>
-            <td>{{ expense.description }}</td>
-            <td>{{ expense.category }}</td>
-            <td>{{ expense.amount }}</td>
-            <td>
-              <span class="glyphicon glyphicon-edit"></span> <a href="{% url 'update_expense' expense.id %}">Edit</a>&nbsp;
-              <span class="glyphicon glyphicon-remove-circle"></span> <a href="{% url 'delete_expense' expense.id %}">Delete</a>
-            </td>
-          </tr>
-          {% empty %}
-          <tr>
-            <td colspan="5">
-              <span style="text-align:center;">No expenses saved</span>
-            </td>
-          </tr>
-
-          {% endfor %}
-        </tbody>
-      </table>
-      {% if is_paginated %}
-      <ul class="pager">
-        <li class="previous{% if not page_obj.has_previous %} disabled{% endif %}">
-          <a href="{% if page_obj.has_previous %}{% url 'list_expenses' %}?page={{ page_obj.previous_page_number }}{% else %}#{% endif %}" class="previous">Previous</a>
-        </li>
-        <li class="next{% if not page_obj.has_next %} disabled{% endif %}">
-          <a href="{% if page_obj.has_next %}{% url 'list_expenses' %}?page={{ page_obj.next_page_number }}{% else %}#{% endif %}" class="next">Next</a>
-        </li>
-      </ul>
-      {% endif %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        All Expenses {% if category_wise %} in {{ category_name }}{% endif %}
+      </div>
+      <div class="panel-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th>Amount</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for expense in expenses %}
+            <tr>
+              <td>{{ expense.date }}</td>
+              <td>{{ expense.description }}</td>
+              <td>{{ expense.category }}</td>
+              <td>{{ expense.amount }}</td>
+              <td>
+                <span class="glyphicon glyphicon-edit"></span> <a href="{% url 'update_expense' expense.id %}">Edit</a>&nbsp;
+                <span class="glyphicon glyphicon-remove-circle"></span> <a href="{% url 'delete_expense' expense.id %}">Delete</a>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="5">
+                <span style="text-align:center;">No expenses saved</span>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% if is_paginated %}
+        <ul class="pager">
+          <li class="previous{% if not page_obj.has_previous %} disabled{% endif %}">
+            <a href="{% if page_obj.has_previous %}{% url 'list_expenses' %}?page={{ page_obj.previous_page_number }}{% else %}#{% endif %}" class="previous">Previous</a>
+          </li>
+          <li class="next{% if not page_obj.has_next %} disabled{% endif %}">
+            <a href="{% if page_obj.has_next %}{% url 'list_expenses' %}?page={{ page_obj.next_page_number }}{% else %}#{% endif %}" class="next">Next</a>
+          </li>
+        </ul>
+        {% endif %}
+      </div>
     </div>
   </div>
-</div>
   <div class="col-md-2">
     <a href="{% url 'new_expense' %}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-plus"></span> New Expense</a>
   </div>
@@ -99,6 +98,9 @@ Xpens - Expenses
         window.location = url;
       }
       return false;
+    });
+    $(".alert-success").fadeTo(2000, 500).slideUp(500, function(){
+      $(".alert-success").alert('close');
     });
   });
 </script>

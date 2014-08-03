@@ -19,10 +19,10 @@ Xpens - Categories
 {% include "app/nav.html" %}
 <div class="row">
   <div class="col-md-8">
+    {% include "app/messages.html" %}
     <div class="panel panel-default">
       <div class="panel-heading">All Categories</div>
       <div class="panel-body">
-        {% include "app/messages.html" %}
         <table class="table">
           <thead>
             <tr>
@@ -72,6 +72,9 @@ Xpens - Categories
 <script type="text/javascript">
   $(document).ready(function(){
     $('#categories').addClass('active');
+    $(".alert-success").fadeTo(2000, 500).slideUp(500, function(){
+      $(".alert-success").alert('close');
+    });
   });
 </script>
 {% endblock %}
