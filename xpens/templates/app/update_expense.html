@@ -11,7 +11,7 @@ Xpens - Update Expense
 
 {% block content %}
 {% include "app/nav.html" %}
-{% with form_title="Update Expense" %}
+{% with form_title="Update Expense"  back_url_name="list_expenses" %}
 {% include "app/form.html" %}
 {% endwith %}
 {% endblock %}

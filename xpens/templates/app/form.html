@@ -3,32 +3,35 @@
     <form role="form" action="." method="post" class="form-horizontal">
       {% csrf_token %}
       <fieldset>
-	<legend>{{ form_title }}</legend>
-	{% if form.non_field_errors %}
-	<p class="error">
-	  {% for error in form.non_field_errors %}
-	  {{ error }}
-	  {% endfor %}
-	</p>
-	{% endif %}
-	{% for field in form %}
-	<div class="form-group">
-	  {{ field.label_tag }}
-	  <div class="col-md-6">
-	    {{ field }}
-	  </div>
-	  {% if field.errors %}
-	  <p class="error">
-	    {% for error in field.errors %}
-	    {{ error }}
-	    {% endfor %}
-	  </p>
-	  {% endif %}
-	</div>
-	{% endfor %}
-	<div class="col-md-offset-2 col-lg-6">
-	  <input type="submit" class="btn btn-default" value="Submit" />
-	</div>
+        <legend>{{ form_title }}</legend>
+        {% if form.non_field_errors %}
+        <p class="error">
+          {% for error in form.non_field_errors %}
+          {{ error }}
+          {% endfor %}
+        </p>
+        {% endif %}
+        {% for field in form %}
+        <div class="form-group">
+          {{ field.label_tag }}
+          <div class="col-md-6">
+            {{ field }}
+          </div>
+          {% if field.errors %}
+          <p class="error">
+            {% for error in field.errors %}
+            {{ error }}
+            {% endfor %}
+          </p>
+          {% endif %}
+        </div>
+        {% endfor %}
+        <div class="col-md-offset-2 col-lg-6">
+          <div class="form-controls">
+            <input type="submit" class="btn btn-primary" value="Submit" />
+            <a href="{% url back_url_name %}" class="btn btn-default">Back</a>
+          </div>
+        </div>
       </fieldset>
     </form>
   </div>
