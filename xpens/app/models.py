@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 class Category(models.Model):
     name = models.CharField(max_length=100)
     user = models.ForeignKey(User, related_name="categories")
+    description = models.TextField(blank=True, default="")
 
     def __unicode__(self):
         return self.name

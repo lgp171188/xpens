@@ -22,41 +22,43 @@ Xpens - Categories
     <div class="panel panel-default">
       <div class="panel-heading">All Categories</div>
       <div class="panel-body">
-	{% include "app/messages.html" %}
-	<table class="table">
-	  <thead>
-	    <tr>
-	      <th>Name</th>
-	      <th>Actions</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    {% for category in categories %}
-	    <tr>
-	      <td>{{ category.name }}</td>
-	      <td>
-		<span class="glyphicon glyphicon-edit"></span> <a href="{% url 'update_category' category.id %}">Edit</a>&nbsp;
-		<span class="glyphicon glyphicon-remove-circle"></span> <a href="{% url 'delete_category' category.id %}">Delete</a>
+        {% include "app/messages.html" %}
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for category in categories %}
+            <tr>
+              <td>{{ category.name }}</td>
+              <td>{{ category.description }}</td>
+              <td>
+                <span class="glyphicon glyphicon-edit"></span> <a href="{% url 'update_category' category.id %}">Edit</a>&nbsp;
+                <span class="glyphicon glyphicon-remove-circle"></span> <a href="{% url 'delete_category' category.id %}">Delete</a>
               </td>
-	    </tr>
-	    {% empty %}
-	    <tr>
-	      <td colspan="3">
-		<span style="text-align:center;">No categories saved</span>
-	      </td>
-	    </tr>
-	    {% endfor %}
-	  </tbody>
-	</table>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="3">
+                <span style="text-align:center;">No categories saved</span>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
     </div>
     {% if is_paginated %}
     <ul class="pager">
       <li class="previous{% if not page_obj.has_previous %} disabled{% endif %}">
-	<a href="{% if page_obj.has_previous %}{% url 'list_categories' %}?page={{ page_obj.previous_page_number }}{% else %}#{% endif %}" class="previous">Previous</a>
+        <a href="{% if page_obj.has_previous %}{% url 'list_categories' %}?page={{ page_obj.previous_page_number }}{% else %}#{% endif %}" class="previous">Previous</a>
       </li>
       <li class="next{% if not page_obj.has_next %} disabled{% endif %}">
-	<a href="{% if page_obj.has_next %}{% url 'list_categories' %}?page={{ page_obj.next_page_number }}{% else %}#{% endif %}" class="next">Next</a>
+        <a href="{% if page_obj.has_next %}{% url 'list_categories' %}?page={{ page_obj.next_page_number }}{% else %}#{% endif %}" class="next">Next</a>
       </li>
     </ul>
     {% endif %}
