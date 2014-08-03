@@ -19,15 +19,17 @@ Xpens - Statistics by Category
 {% include "app/nav.html" %}
 <div class="row">
   <div class="col-md-8">
-    <select class="form-control" onchange="window.document.location.href=this.options[this.selectedIndex].value;">
-      <option value="">Select a period</option>
-      <option value="{% url 'statistics' %}">Current month</option>
-      <option value="{% url 'statistics_custom' from_date=pm_f_date to_date=pm_t_date %}">Previous month</option>
-      <option value="{% url 'statistics_custom' from_date=cpm_f_date to_date=cpm_t_date %}">Current & previous month</option>
-      <option value="{% url 'statistics_custom' from_date=six_f_date to_date=six_t_date %}">Last 6 months</option>
-      <option value="{% url 'statistics_custom' from_date=cy_f_date to_date=cy_t_date %}">Current year</option>
-      <option value="{% url 'statistics_custom' from_date=py_f_date to_date=py_t_date %}">Previous year</option>
-    </select>
+    <div class="col-md-5" style="padding: 15px;">
+      <select class="form-control">
+        <option value="">Select a period</option>
+        <option value="{% url 'statistics' %}">Current month</option>
+        <option value="{% url 'statistics_custom' from_date=pm_f_date to_date=pm_t_date %}">Previous month</option>
+        <option value="{% url 'statistics_custom' from_date=cpm_f_date to_date=cpm_t_date %}">Current & previous month</option>
+        <option value="{% url 'statistics_custom' from_date=six_f_date to_date=six_t_date %}">Last 6 months</option>
+        <option value="{% url 'statistics_custom' from_date=cy_f_date to_date=cy_t_date %}">Current year</option>
+        <option value="{% url 'statistics_custom' from_date=py_f_date to_date=py_t_date %}">Previous year</option>
+      </select>
+    </div>
   </div>
 </div>
 <div class="row">
@@ -53,8 +55,15 @@ Xpens - Statistics by Category
 {% block custom_js %}
 <script type="text/javascript">
   $(document).ready(function(){
-  $('#statistics').addClass('active');
-  $(".alert").alert();
+    $('#statistics').addClass('active');
+    $(".alert").alert();
+    $("select").change(function(){
+      var url = $(this).val();
+      if (url) {
+          window.location = url;
+      }
+      return false;
+    });
   });
 </script>
 {% endblock %}

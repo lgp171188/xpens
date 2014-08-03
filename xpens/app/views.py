@@ -5,7 +5,7 @@ from django.contrib.auth.views import login as auth_login
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View, TemplateView, ListView, CreateView, UpdateView, DeleteView, RedirectView
 from django.utils.decorators import method_decorator
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.core.urlresolvers import reverse_lazy
 from django.core.exceptions import PermissionDenied
 from django.contrib import messages
@@ -26,6 +26,7 @@ class SetCurrentUserInFormMixin(object):
         self.object.save()
         messages.success(self.request, self.success_message)
         return redirect(self.get_success_url())
+
 
 class EditPermissionOwnerUserOnlyMixin(object):
     def get_object(self, queryset=None):
@@ -57,6 +58,11 @@ class ListExpensesView(LoginRequiredMixin,
         of the current user."""
         queryset = Expense.objects.filter(user=self.request.user).order_by("-date")
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super(ListExpensesView, self).get_context_data(**kwargs)
+        context["category_list"] = Category.objects.filter(user=self.request.user)
+        return context
 
 class NewExpenseView(LoginRequiredMixin,
                      SetCurrentUserInFormMixin,
@@ -246,4 +252,17 @@ class StatisticsView(LoginRequiredMixin,
         ranges = self._get_custom_range_dates()
         for k in ranges.keys():
             context[k] = ranges[k].strftime("%d-%m-%Y")
+        return context
+
+class ListCategoryExpensesView(ListExpensesView):
+    def get_queryset(self):
+        category_id = self.kwargs['category_id']
+        category = get_object_or_404(Category, pk=category_id)
+        queryset = Expense.objects.filter(category=category).order_by("-date")
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super(ListCategoryExpensesView, self).get_context_data(**kwargs)
+        context['category_wise'] = True
+        context['category_name'] = get_object_or_404(Category, pk=self.kwargs['category_id']).name
         return context
