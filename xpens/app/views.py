@@ -55,7 +55,7 @@ class ListExpensesView(LoginRequiredMixin,
     def get_queryset(self):
         """Tweak the queryset to include only the expenses
         of the current user."""
-        queryset = Expense.objects.filter(user=self.request.user)
+        queryset = Expense.objects.filter(user=self.request.user).order_by("-date")
         return queryset
 
 class NewExpenseView(LoginRequiredMixin,
