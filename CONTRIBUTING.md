@@ -28,7 +28,7 @@ If your issue appears to be a bug, and hasn't been reported, please
 
 Submitting a Pull Request
 -------------------------
-Before you submit your pull request, [search GitHub](4) for an open or
+Before you submit your pull request, [search GitHub][4] for an open or
 closed Pull Request that relates to your submission. It is a good idea to
 avoid duplicating effort.
 
