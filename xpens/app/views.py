@@ -157,7 +157,7 @@ class OverviewView(LoginRequiredMixin,
     def _get_chart_data(self):
         today = date.today()
         current_month_beginning = date(today.year, today.month, 1)
-        expenses = Expense.objects.filter(date__gte=current_month_beginning)
+        expenses = Expense.objects.filter(user=self.request.user, date__gte=current_month_beginning)
         categories = [category['category__name'] for category in expenses.values('category__name').distinct()]
         aggregate = []
         for category in categories:
