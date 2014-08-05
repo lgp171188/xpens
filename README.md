@@ -51,12 +51,22 @@ Installation
 Upgrading
 ---------
 
- - Since Xpens is in active development, there might be database breakages
-   when upgrading between versions from Git since there is no migration
-   framework used. So you will have to manually make the database changes
-   to be able to run Xpens without any errors.
- - Migration will be implemented after Django 1.7 is released since it has
-   in-built migration.
+ - When you update Xpens from its git repository, be aware of the following things:
+   - If there are changes to ```buildout.cfg```, you will have to run
+     ```bin/buildout``` from the top-level ```xpens/``` directory to
+     install/update the dependencies.
+   - If there are any changes to ```settings_template.py```, you will have to
+     merge them with the ```settings.py``` in your environment.
+   - If there are new apps added to the ```INSTALLED_APPS``` variable in
+     ```settings_template.py``` or any new models added, you will have to run
+     ```bin/django syncdb``` to update the database, after doing the previous
+     step.
+   - Since Xpens is in active development, there might be database breakages
+     when upgrading between versions from Git since there is no migration
+     framework used. So you will have to manually make the database schema
+     changes to be able to run Xpens without any errors. Migration will be
+     implemented after Django 1.7 is released since it has in-built migration.
+
 
 Contributing
 ------------
