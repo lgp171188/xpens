@@ -12,9 +12,12 @@ Pre-requisites
  - PostgreSQL server with headers (any recent version supported by Django)
  - Python headers (needed only while running buildout for building some eggs)
  - PostgreSQL client library (libpq) and headers (for building psycopg2 egg)
+ - JPEG and Freetype libraries with headers. This is required by Pillow which
+   is used by "django-simple-captcha". The captcha on the registration page
+   uses "django-simple-captcha". In Debian/Ubuntu, the packages to be installed
+   are ```libjpeg8-dev``` and ```libfreetype6-dev```.
  - Xpens should work on Mac OS X and Windows provided you know how to tweak
-   them for the above requirements. Xpens has been tested on Windows under
-   Cygwin.
+   them for the above requirements.
 
 Installation
 ------------
