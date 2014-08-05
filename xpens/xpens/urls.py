@@ -2,12 +2,16 @@ from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
 from django.core.urlresolvers import reverse_lazy
 from app.views import *
+from user_mgmt.views import *
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 
 urlpatterns = patterns('',
                        url(r'^$', HomeView.as_view(), name="home"),
+                       url(r'^register/$',
+                           RegistrationView.as_view(),
+                           name="register"),
                        url(r'^login/$', LoginView.as_view(),
                            {
                                "template_name" : "app/login.html",

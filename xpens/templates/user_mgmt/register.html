@@ -7,29 +7,13 @@ Xpens - Login
 
 {% endblock %}
 
-{% block custom_css %}
-<style type="text/css">
-  #login-form {
-    width: 15%;
-    margin: 10px auto;
-  }
-</style>
-{% endblock %}
-
 {% block content %}
-{% if messages %}
-<div class="row">
-  <div class="col-md-offset-4 col-md-4">
-    {% include "app/messages.html" %}
-  </div>
-</div>
-{% endif %}
 <div class="row">
   <div class="col-md-offset-4 col-md-4">
     <form role="form" action="." method="post">
       {% csrf_token %}
       <fieldset>
-        <legend>Xpens - Login</legend>
+        <legend>Xpens - Registration</legend>
         {% if form.non_field_errors %}
         <p class="error">
           {% for error in form.non_field_errors %}
@@ -50,9 +34,8 @@ Xpens - Login
           {% endif %}
         </div>
         {% endfor %}
-        <input type="hidden" name="next" value="{{ next }}" />
-        <input type="submit" class="btn btn-default" value="Login" />
-        <a href="{% url 'register' %}" style="padding-left:15px;">Register</a>
+        <input type="submit" class="btn btn-default" value="Register" />
+        <a href="{% url 'login' %}" style="padding-left:15px;">Back to login page</a>
       </fieldset>
     </form>
   </div>
@@ -62,11 +45,8 @@ Xpens - Login
 {% block custom_js %}
 <script type="text/javascript">
   $(document).ready(function(){
-    $('input[type=text]').addClass('form-control');
-    $('input[type=password]').addClass('form-control');
-    $(".alert-success").fadeTo(2000, 500).slideUp(500, function(){
-      $(".alert-success").alert('close');
-    });
+    $('input').addClass('form-control');
+    $('input[type=submit]').removeClass('form-control');
   });
 </script>
 {% endblock custom_js %}
