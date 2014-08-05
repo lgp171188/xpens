@@ -59,6 +59,7 @@ urlpatterns = patterns('',
                        url(r'^statistics/categories/$',
                            StatisticsView.as_view(),
                            name="statistics"),
+                       url(r'^captcha/', include('captcha.urls')),
     # Examples:
     # url(r'^$', 'xpens.views.home', name='home'),
     # url(r'^xpens/', include('xpens.foo.urls')),
