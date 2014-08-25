@@ -72,10 +72,10 @@ Xpens - Expenses
         {% if is_paginated %}
         <ul class="pager">
           <li class="previous{% if not page_obj.has_previous %} disabled{% endif %}">
-            <a href="{% if page_obj.has_previous %}{% url 'list_expenses' %}?page={{ page_obj.previous_page_number }}{% else %}#{% endif %}" class="previous">Previous</a>
+            <a href="{% if page_obj.has_previous %}{{ request.get_full_path }}?page={{ page_obj.previous_page_number }}{% else %}#{% endif %}" class="previous">Previous</a>
           </li>
           <li class="next{% if not page_obj.has_next %} disabled{% endif %}">
-            <a href="{% if page_obj.has_next %}{% url 'list_expenses' %}?page={{ page_obj.next_page_number }}{% else %}#{% endif %}" class="next">Next</a>
+            <a href="{% if page_obj.has_next %}{{ request.get_full_path }}?page={{ page_obj.next_page_number }}{% else %}#{% endif %}" class="next">Next</a>
           </li>
         </ul>
         {% endif %}
