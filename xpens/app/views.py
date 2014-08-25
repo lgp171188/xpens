@@ -253,7 +253,9 @@ class StatisticsView(LoginRequiredMixin,
 
     def get_context_data(self, **kwargs):
         context = super(StatisticsView, self).get_context_data(**kwargs)
-        context['data'] = self._get_chart_data()
+        data = self._get_chart_data()
+        context['data'] = data
+        context['total'] = sum(data['chartdata']['y'])
         context['from_date'] = self.from_date
         context['to_date'] = self.to_date
         ranges = self._get_custom_range_dates()

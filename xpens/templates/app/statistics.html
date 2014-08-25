@@ -44,6 +44,9 @@ Xpens - Statistics by Category
         {% include_chart_jscss %}
         {% load_chart data.charttype data.chartdata data.chartcontainer data.extra %}
         {% include_container data.chartcontainer %}
+        {% if total != 0 %}
+        <h5 style="text-align:right;">Total: {{ total }}</h5>
+        {% endif %}
       </div>
     </div>
     {% else %}
