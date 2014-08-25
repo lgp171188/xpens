@@ -154,10 +154,15 @@ class OverviewView(LoginRequiredMixin,
         queryset = Expense.objects.filter(user=self.request.user).order_by("-date")[:5]
         return queryset
 
+    def _get_expenses_current_month_current_user(self):
+        today = date.today()
+        current_month_beginning = date(today.year, today.month, 1)
+        return Expense.objects.filter(user=self.request.user,
+                                      date__gte=current_month_beginning)
     def _get_chart_data(self):
         today = date.today()
         current_month_beginning = date(today.year, today.month, 1)
-        expenses = Expense.objects.filter(user=self.request.user, date__gte=current_month_beginning)
+        expenses = self._get_expenses_current_month_current_user()
         categories = [category['category__name'] for category in expenses.values('category__name').distinct()]
         aggregate = []
         for category in categories:
