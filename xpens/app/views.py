@@ -180,7 +180,9 @@ class OverviewView(LoginRequiredMixin,
 
     def get_context_data(self, **kwargs):
         context = super(OverviewView, self).get_context_data(**kwargs)
-        context['data'] = self._get_chart_data()
+        data = self._get_chart_data()
+        context['data'] = data
+        context['total'] = sum(data['chartdata']['y'])
         return context
 
 class StatisticsView(LoginRequiredMixin,

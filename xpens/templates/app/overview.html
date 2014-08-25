@@ -22,49 +22,50 @@ Xpens - Overview
     <div class="panel panel-default">
       <div class="panel-heading">Recent Expenses</div>
       <div class="panel-body">
-	{% include "app/messages.html" %}
-	<table class="table">
-	  <thead>
-	    <tr>
-	      <th>Date</th>
-	      <th>Description</th>
-	      <th>Category</th>
-	      <th>Amount</th>
-	      <th>Actions</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    {% for expense in expenses %}
-	    <tr>
-	      <td>{{ expense.date }}</td>
-	      <td>{{ expense.description }}</td>
-	      <td>{{ expense.category }}</td>
-	      <td>{{ expense.amount }}</td>
-	      <td>
-		<span class="glyphicon glyphicon-edit"></span> <a href="{% url 'update_expense' expense.id %}">Edit</a>&nbsp;
-		<span class="glyphicon glyphicon-remove-circle"></span> <a href="{% url 'delete_expense' expense.id %}">Delete</a>
+        {% include "app/messages.html" %}
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th>Amount</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for expense in expenses %}
+            <tr>
+              <td>{{ expense.date }}</td>
+              <td>{{ expense.description }}</td>
+              <td>{{ expense.category }}</td>
+              <td>{{ expense.amount }}</td>
+              <td>
+                <span class="glyphicon glyphicon-edit"></span> <a href="{% url 'update_expense' expense.id %}">Edit</a>&nbsp;
+                <span class="glyphicon glyphicon-remove-circle"></span> <a href="{% url 'delete_expense' expense.id %}">Delete</a>
               </td>
-	    </tr>
-	    {% empty %}
-	    <tr>
-	      <td colspan="5">
-		<span style="text-align:center;">No expenses saved</span>
-	      </td>
-	    </tr>
-	    {% endfor %}
-	  </tbody>
-	</table>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="5">
+                <span style="text-align:center;">No expenses saved</span>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
     </div>
     <div class="panel panel-default">
       <div class="panel-heading">
-	Where your money is going this month
+        Where your money is going this month
       </div>
       <div class="panel-body">
-    {% load nvd3_tags %}
-    {% include_chart_jscss %}
-    {% load_chart data.charttype data.chartdata data.chartcontainer data.extra %}
-    {% include_container data.chartcontainer %}
+        {% load nvd3_tags %}
+        {% include_chart_jscss %}
+        {% load_chart data.charttype data.chartdata data.chartcontainer data.extra %}
+        {% include_container data.chartcontainer %}
+        <h5 style="text-align:right;">Total: {{ total }}</h5>
       </div>
     </div>
   </div>
