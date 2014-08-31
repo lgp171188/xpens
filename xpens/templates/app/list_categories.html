@@ -16,12 +16,17 @@ Xpens - Categories
 {% endblock %}
 
 {% block content %}
-{% include "app/nav.html" %}
 <div class="row">
+{% include "app/nav.html" %}
   <div class="col-md-8">
     {% include "app/messages.html" %}
     <div class="panel panel-default">
-      <div class="panel-heading">All Categories</div>
+      <div class="panel-heading">
+        All Categories
+        <span style="float:right;">
+          <a href="{% url 'new_category' %}" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i> New Category</a>
+        </span>
+      </div>
       <div class="panel-body">
         <table class="table">
           <thead>
@@ -37,8 +42,8 @@ Xpens - Categories
               <td>{{ category.name }}</td>
               <td>{{ category.description }}</td>
               <td>
-                <span class="glyphicon glyphicon-edit"></span> <a href="{% url 'update_category' category.id %}">Edit</a>&nbsp;
-                <span class="glyphicon glyphicon-remove-circle"></span> <a href="{% url 'delete_category' category.id %}">Delete</a>
+                <i class="fa fa-edit"></i> <a href="{% url 'update_category' category.id %}">Edit</a>&nbsp;
+                <i class="fa fa-trash"></i> <a href="{% url 'delete_category' category.id %}">Delete</a>
               </td>
             </tr>
             {% empty %}
@@ -62,9 +67,6 @@ Xpens - Categories
       </li>
     </ul>
     {% endif %}
-  </div>
-  <div class="col-md-2">
-    <a href="{% url 'new_category' %}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-plus"></span> New Category</a>
   </div>
 </div>
 {% endblock %}

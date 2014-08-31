@@ -16,74 +16,75 @@ Xpens - Expenses
 {% endblock %}
 
 {% block content %}
-{% include "app/nav.html" %}
 <div class="row">
+  {% include "app/nav.html" %}
   <div class="col-md-8">
-    {% include "app/messages.html" %}
-    <div class="col-md-5" style="padding: 0px 15px 15px 0px;">
-      <select class="form-control">
-        <option value="">Select a category</option>
-        <option value="{% url 'list_expenses' %}">All categories</option>
-        {% for category in category_list %}
-        <option value="{% url 'list_expenses_category' category_id=category.id%}">{{ category.name }}</option>
-        {% endfor %}
-      </select>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-8">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        All Expenses {% if category_wise %} in {{ category_name }}{% endif %}
-      </div>
-      <div class="panel-body">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Description</th>
-              <th>Category</th>
-              <th>Amount</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for expense in expenses %}
-            <tr>
-              <td>{{ expense.date }}</td>
-              <td>{{ expense.description }}</td>
-              <td>{{ expense.category }}</td>
-              <td>{{ expense.amount }}</td>
-              <td>
-                <span class="glyphicon glyphicon-edit"></span> <a href="{% url 'update_expense' expense.id %}">Edit</a>&nbsp;
-                <span class="glyphicon glyphicon-remove-circle"></span> <a href="{% url 'delete_expense' expense.id %}">Delete</a>
-              </td>
-            </tr>
-            {% empty %}
-            <tr>
-              <td colspan="5">
-                <span style="text-align:center;">No expenses saved</span>
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-        {% if is_paginated %}
-        <ul class="pager">
-          <li class="previous{% if not page_obj.has_previous %} disabled{% endif %}">
-            <a href="{% if page_obj.has_previous %}{{ request.get_full_path }}?page={{ page_obj.previous_page_number }}{% else %}#{% endif %}" class="previous">Previous</a>
-          </li>
-          <li class="next{% if not page_obj.has_next %} disabled{% endif %}">
-            <a href="{% if page_obj.has_next %}{{ request.get_full_path }}?page={{ page_obj.next_page_number }}{% else %}#{% endif %}" class="next">Next</a>
-          </li>
-        </ul>
-        {% endif %}
+    <div class="row">
+      {% include "app/messages.html" %}
+      <div class="col-md-4">
+        <select class="form-control">
+          <option value="">Select a category</option>
+          <option value="{% url 'list_expenses' %}">All categories</option>
+          {% for category in category_list %}
+          <option value="{% url 'list_expenses_category' category_id=category.id%}">{{ category.name }}</option>
+          {% endfor %}
+        </select>
+        <br/>
       </div>
     </div>
-  </div>
-  <div class="col-md-2">
-    <a href="{% url 'new_expense' %}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-plus"></span> New Expense</a>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            All Expenses {% if category_wise %} in {{ category_name }}{% endif %}
+            <span style="float:right;"><a href="{% url 'new_expense' %}" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i> New Expense</a></span>
+          </div>
+          <div class="panel-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th>Category</th>
+                  <th>Amount</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for expense in expenses %}
+                <tr>
+                  <td>{{ expense.date }}</td>
+                  <td>{{ expense.description }}</td>
+                  <td>{{ expense.category }}</td>
+                  <td>{{ expense.amount }}</td>
+                  <td>
+                    <i class="fa fa-edit"></i> <a href="{% url 'update_expense' expense.id %}">Edit</a>&nbsp;
+                    <i class="fa fa-trash"></i> <a href="{% url 'delete_expense' expense.id %}">Delete</a>
+                  </td>
+                </tr>
+                {% empty %}
+                <tr>
+                  <td colspan="5">
+                    <span style="text-align:center;">No expenses saved</span>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            {% if is_paginated %}
+            <ul class="pager">
+              <li class="previous{% if not page_obj.has_previous %} disabled{% endif %}">
+                <a href="{% if page_obj.has_previous %}{{ request.get_full_path }}?page={{ page_obj.previous_page_number }}{% else %}#{% endif %}" class="previous">Previous</a>
+              </li>
+              <li class="next{% if not page_obj.has_next %} disabled{% endif %}">
+                <a href="{% if page_obj.has_next %}{{ request.get_full_path }}?page={{ page_obj.next_page_number }}{% else %}#{% endif %}" class="next">Next</a>
+              </li>
+            </ul>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 {% endblock %}

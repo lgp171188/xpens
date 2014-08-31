@@ -16,42 +16,46 @@ Xpens - Statistics by Category
 {% endblock %}
 
 {% block content %}
-{% include "app/nav.html" %}
+
 <div class="row">
+  {% include "app/nav.html" %}
   <div class="col-md-8">
-    <div class="col-md-5" style="padding: 0px 15px 15px 0px;">
-      <select class="form-control">
-        <option value="">Select a period</option>
-        <option value="{% url 'statistics' %}">Current month</option>
-        <option value="{% url 'statistics_custom' from_date=pm_f_date to_date=pm_t_date %}">Previous month</option>
-        <option value="{% url 'statistics_custom' from_date=cpm_f_date to_date=cpm_t_date %}">Current & previous month</option>
-        <option value="{% url 'statistics_custom' from_date=six_f_date to_date=six_t_date %}">Last 6 months</option>
-        <option value="{% url 'statistics_custom' from_date=cy_f_date to_date=cy_t_date %}">Current year</option>
-        <option value="{% url 'statistics_custom' from_date=py_f_date to_date=py_t_date %}">Previous year</option>
-      </select>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-8">
-    {% if data %}
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        From {{ from_date }} to {{ to_date }}
+    <div class="row">
+      <div class="col-md-5">
+        <select class="form-control">
+          <option value="">Select a period</option>
+          <option value="{% url 'statistics' %}">Current month</option>
+          <option value="{% url 'statistics_custom' from_date=pm_f_date to_date=pm_t_date %}">Previous month</option>
+          <option value="{% url 'statistics_custom' from_date=cpm_f_date to_date=cpm_t_date %}">Current & previous month</option>
+          <option value="{% url 'statistics_custom' from_date=six_f_date to_date=six_t_date %}">Last 6 months</option>
+          <option value="{% url 'statistics_custom' from_date=cy_f_date to_date=cy_t_date %}">Current year</option>
+          <option value="{% url 'statistics_custom' from_date=py_f_date to_date=py_t_date %}">Previous year</option>
+        </select>
+        <br/>
       </div>
-      <div class="panel-body">
-        {% load nvd3_tags %}
-        {% include_chart_jscss %}
-        {% load_chart data.charttype data.chartdata data.chartcontainer data.extra %}
-        {% include_container data.chartcontainer %}
-        {% if total != 0 %}
-        <h5 style="text-align:right;">Total: {{ total }}</h5>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        {% if data %}
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            From {{ from_date }} to {{ to_date }}
+          </div>
+          <div class="panel-body">
+            {% load nvd3_tags %}
+            {% include_chart_jscss %}
+            {% load_chart data.charttype data.chartdata data.chartcontainer data.extra %}
+            {% include_container data.chartcontainer %}
+            {% if total != 0 %}
+            <h5 style="text-align:right;">Total: {{ total }}</h5>
+            {% endif %}
+          </div>
+        </div>
+        {% else %}
+        <h3>Invalid date range</h3>
         {% endif %}
       </div>
     </div>
-    {% else %}
-    <h3>Invalid date range</h3>
-    {% endif %}
   </div>
 </div>
 {% endblock %}

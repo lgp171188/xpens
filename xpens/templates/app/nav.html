@@ -1,10 +1,24 @@
-<ul class="nav nav-pills">
-  <li id="overview"><a href="{% url 'overview' %}"><i class="fa fa-tachometer"></i>
-Overview</a></li>
-  <li id="expenses"><a href="{% url 'list_expenses' %}"><i class="fa fa-money"></i>
-Expenses</a></li>
-  <li id="categories"><a href="{% url 'list_categories' %}"><i class="fa fa-tags"></i>
-Categories</a></li>
-  <li id="statistics"><a href="{% url 'statistics' %}"><i class="fa fa-bar-chart"></i>Statistics</a></li>
-</ul>
-<br />
+<div class="col-sm-3 col-md-2 sidebar">
+  <ul class="nav nav-sidebar">
+    <li class="active">
+      <a href="{% url 'overview' %}" class="list-group-item" id="overview">
+        <i class="fa fa-tachometer"></i> Overview
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'list_expenses' %}" class="list-group-item" id="expenses">
+        <i class="fa fa-money"></i> Expenses
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'list_categories' %}" class="list-group-item" id="categories">
+        <i class="fa fa-tags"></i> Categories
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'statistics' %}" class="list-group-item" id="statistics">
+        <i class="fa fa-bar-chart"></i> Statistics
+      </a>
+    </li>
+  </ul>
+</div>
