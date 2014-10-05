@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
+
 {% block page_title %}
 Xpens - Update Expense
 {% endblock %}
 
 {% block custom_css %}
-<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-datetimepicker.min.css" />
+<link rel="stylesheet" href="{% static 'css/bootstrap-datetimepicker.min.css' %}" />
 {% endblock %}
 
 
@@ -17,7 +19,7 @@ Xpens - Update Expense
 {% endblock %}
 
 {% block custom_js %}
-<script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap-datetimepicker.min.js' %}"></script>
 <script type="text/javascript">
   $(document).ready(function(){
     $('input[type=text]').addClass('form-control');
