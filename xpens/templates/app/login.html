@@ -52,7 +52,9 @@ Xpens - Login
         {% endfor %}
         <input type="hidden" name="next" value="{{ next }}" />
         <input type="submit" class="btn btn-default" value="Login" />
+        {% if registration_enabled %}
         <a href="{% url 'register' %}" style="padding-left:15px;">Register</a>
+        {% endif %}
       </fieldset>
     </form>
   </div>

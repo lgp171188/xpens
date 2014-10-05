@@ -106,3 +106,5 @@ TEMPLATE_DIRS = (
 # django.contrib.auth application settings
 
 LOGIN_URL = "/login/"
+
+REGISTRATION_ENABLED = False

@@ -8,6 +8,7 @@ from django.utils.decorators import method_decorator
 from django.shortcuts import redirect, get_object_or_404
 from django.core.urlresolvers import reverse_lazy
 from django.core.exceptions import PermissionDenied
+from django.conf import settings
 from django.contrib import messages
 from .models import *
 from .forms import *
@@ -40,6 +41,8 @@ class LoginView(View):
         if request.user.is_authenticated():
             return redirect(reverse_lazy('home'))
         else:
+            if settings.REGISTRATION_ENABLED:
+                kwargs['registration_enabled'] = True
             return auth_login(request, *args, **kwargs)
 
 class HomeView(LoginRequiredMixin,

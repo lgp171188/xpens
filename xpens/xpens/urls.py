@@ -1,15 +1,13 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
 from django.core.urlresolvers import reverse_lazy
+from django.conf import settings
 
 from app.views import *
 from user_mgmt.views import *
 
 urlpatterns = patterns('',
                        url(r'^$', HomeView.as_view(), name="home"),
-                       url(r'^register/$',
-                           RegistrationView.as_view(),
-                           name="register"),
                        url(r'^login/$', LoginView.as_view(),
                            {
                                "template_name" : "app/login.html",
@@ -59,3 +57,10 @@ urlpatterns = patterns('',
                            name="statistics"),
                        url(r'^captcha/', include('captcha.urls')),
 )
+
+if settings.REGISTRATION_ENABLED:
+    urlpatterns += patterns('',
+                            url(r'^register/$',
+                                RegistrationView.as_view(),
+                                name="register"),
+                   )
