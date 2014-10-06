@@ -38,9 +38,10 @@ Installation
  - In case you don't want to use psycopg or PostgreSQL, feel free to modify
    the database engine to whatever suits you and it should work just fine.
  - Navigate back to the top-level ```xpens/``` directory and run
-   ```bin/django syncdb```. This will create the tables required by Xpens in
-   the PostgreSQL database. Also create the superuser account when prompted.
-   This account will be used in the Xpens application.
+   ```bin/django migrate```. This will create the tables required by Xpens in
+   the PostgreSQL database and apply the migrations, if any. Also create the
+   superuser account when prompted. This account will be used to login to the
+   Xpens application.
  - Run the Django development server using ```bin/django runserver```. This
    will start the server on ```locahost:8000```. Note that this works fine
    only for running Xpens locally to develop on it. Using Django's development
@@ -61,11 +62,10 @@ Upgrading
      ```settings_template.py``` or any new models added, you will have to run
      ```bin/django syncdb``` to update the database, after doing the previous
      step.
-   - Since Xpens is in active development, there might be database breakages
-     when upgrading between versions from Git since there is no migration
-     framework used. So you will have to manually make the database schema
-     changes to be able to run Xpens without any errors. Migration will be
-     implemented after Django 1.7 is released since it has in-built migration.
+   - Since Xpens is in active development, there might be changes to the
+     database schema  when upgrading between versions from Git. So do run
+     ```bin/django migrate``` to apply the database migrations before trying to
+     run or deploy Xpens.
 
 
 Contributing
