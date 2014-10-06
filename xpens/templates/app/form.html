@@ -12,13 +12,14 @@
         </p>
         {% endif %}
         {% for field in form %}
-        <div class="form-group">
+
+        <div class="form-group {% if field.errors %}has-error has-feedback{% endif %}">
           {{ field.label_tag }}
           <div class="col-md-6">
             {{ field }}
           </div>
           {% if field.errors %}
-          <p class="error">
+          <p class="text-danger">
             {% for error in field.errors %}
             {{ error }}
             {% endfor %}
