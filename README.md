@@ -42,12 +42,17 @@ Installation
    the PostgreSQL database and apply the migrations, if any. Also create the
    superuser account when prompted. This account will be used to login to the
    Xpens application.
- - Run the Django development server using ```bin/django runserver```. This
-   will start the server on ```locahost:8000```. Note that this works fine
-   only for running Xpens locally to develop on it. Using Django's development
-   server in production is not recommended.
- - Open your favorite browser and navigate to ```localhost:8000``` to access
-   the Xpens application. Login using the user account created before.
+ - Running in development mode
+   - Run the Django development server using ```bin/django runserver```. This
+     will start the server on ```locahost:8000```. Note that this works fine
+     only for running Xpens locally to develop on it. Using Django's development
+     server in production is not recommended.
+   - Open your favorite browser and navigate to ```localhost:8000``` to access
+     the Xpens application. Login using the user account created before.
+ - Deploying in production
+   - Set ```DEBUG``` and ```TEMPLATE_DEBUG``` variables in ```settings.py``` to
+     ```False``` to disable debug mode in production.
+   - If using apache2 webserver with mod_wsgi, please check out ```deploy/apache2_mod_wsgi.conf``` file for an example configuration.
 
 Upgrading
 ---------
@@ -72,10 +77,6 @@ Contributing
 ------------
 
 Please read CONTRIBUTING.md
-
-### TODO
- - Document how to deploy Xpens in production.
-
 
   [1]: http://www.buildout.org/
   [2]: http://www.djangoproject.com/
