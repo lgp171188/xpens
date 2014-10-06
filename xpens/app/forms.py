@@ -9,6 +9,9 @@ class NewExpenseForm(ModelForm):
     class Meta:
         model = Expense
         fields = ['date', 'amount', 'description', 'category']
+        widgets = {
+            'amount': forms.TextInput(),
+        }
 
 class NewCategoryForm(ModelForm):
     class Meta:
