@@ -52,7 +52,12 @@ Installation
  - Deploying in production
    - Set ```DEBUG``` and ```TEMPLATE_DEBUG``` variables in ```settings.py``` to
      ```False``` to disable debug mode in production.
-   - If using apache2 webserver with mod_wsgi, please check out ```deploy/apache2_mod_wsgi.conf``` file for an example configuration.
+   - Collect all the static files to the ```STATIC_ROOT``` location
+     specified in ```settings.py``` by running ```bin/django collectstatic```.
+     This location has to be served under the ```STATIC_URL``` path, by the web
+     server.
+   - If using apache2 webserver with mod_wsgi, please check out
+     ```deploy/apache2_mod_wsgi.conf``` file for an example configuration.
 
 Upgrading
 ---------
