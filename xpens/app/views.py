@@ -1,26 +1,41 @@
 from datetime import date, datetime
 import calendar
+
 from django.db.models import Sum
-from django.contrib.auth.views import login as auth_login
-from django.contrib.auth.decorators import login_required
-from django.views.generic import View, TemplateView, ListView, CreateView, UpdateView, DeleteView, RedirectView
 from django.utils.decorators import method_decorator
 from django.shortcuts import redirect, get_object_or_404
 from django.core.urlresolvers import reverse_lazy
 from django.core.exceptions import PermissionDenied
 from django.conf import settings
+from django.views.generic import (
+    View,
+    TemplateView,
+    ListView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+    RedirectView
+)
+
+from django.contrib.auth.views import login as auth_login
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+
 from .models import *
 from .forms import *
 
+
 class LoginRequiredMixin(object):
+
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         return super(LoginRequiredMixin, self).dispatch(request,
                                                         *args,
                                                         **kwargs)
 
+
 class SetCurrentUserInFormMixin(object):
+
     def form_valid(self, form):
         self.object = form.save(commit=False)
         self.object.user = self.request.user
@@ -30,6 +45,7 @@ class SetCurrentUserInFormMixin(object):
 
 
 class EditPermissionOwnerUserOnlyMixin(object):
+
     def get_object(self, queryset=None):
         obj = super(EditPermissionOwnerUserOnlyMixin, self).get_object()
         if obj.user != self.request.user:
@@ -37,6 +53,7 @@ class EditPermissionOwnerUserOnlyMixin(object):
         return obj
 
 class LoginView(View):
+
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated():
             return redirect(reverse_lazy('home'))
@@ -45,9 +62,11 @@ class LoginView(View):
                 kwargs['registration_enabled'] = True
             return auth_login(request, *args, **kwargs)
 
+
 class HomeView(LoginRequiredMixin,
                RedirectView):
     url = reverse_lazy('overview')
+
 
 class ListExpensesView(LoginRequiredMixin,
                        ListView):
@@ -67,6 +86,7 @@ class ListExpensesView(LoginRequiredMixin,
         context["category_list"] = Category.objects.filter(user=self.request.user)
         return context
 
+
 class NewExpenseView(LoginRequiredMixin,
                      SetCurrentUserInFormMixin,
                      CreateView):
@@ -80,6 +100,7 @@ class NewExpenseView(LoginRequiredMixin,
         form.fields['category'].queryset = Category.objects.filter(user=self.request.user)
         return form
 
+
 class ListCategoriesView(LoginRequiredMixin, ListView):
     context_object_name = "categories"
     model = Category
@@ -92,6 +113,7 @@ class ListCategoriesView(LoginRequiredMixin, ListView):
         queryset = Category.objects.filter(user=self.request.user)
         return queryset
 
+
 class NewCategoryView(LoginRequiredMixin,
                       SetCurrentUserInFormMixin,
                       CreateView):
@@ -99,6 +121,7 @@ class NewCategoryView(LoginRequiredMixin,
     template_name = "app/new_category.html"
     success_url = reverse_lazy('list_categories')
     success_message = "New Category successfully added"
+
 
 class UpdateExpenseView(LoginRequiredMixin,
                         EditPermissionOwnerUserOnlyMixin,
@@ -114,6 +137,7 @@ class UpdateExpenseView(LoginRequiredMixin,
         form = super(UpdateExpenseView, self).get_form(form_class)
         form.fields['category'].queryset = Category.objects.filter(user=self.request.user)
         return form
+
 
 class UpdateCategoryView(LoginRequiredMixin,
                          EditPermissionOwnerUserOnlyMixin,
@@ -131,6 +155,7 @@ class UpdateCategoryView(LoginRequiredMixin,
             raise PermissionDenied
         return category
 
+
 class DeleteExpenseView(LoginRequiredMixin,
                         EditPermissionOwnerUserOnlyMixin,
                         DeleteView):
@@ -138,12 +163,14 @@ class DeleteExpenseView(LoginRequiredMixin,
     template_name = "app/delete_expense_confirm.html"
     success_url = reverse_lazy('list_expenses')
 
+
 class DeleteCategoryView(LoginRequiredMixin,
                         EditPermissionOwnerUserOnlyMixin,
                         DeleteView):
     model = Category
     template_name = "app/delete_category_confirm.html"
     success_url = reverse_lazy('list_categories')
+
 
 class OverviewView(LoginRequiredMixin,
                        ListView):
@@ -187,6 +214,7 @@ class OverviewView(LoginRequiredMixin,
         context['data'] = data
         context['total'] = sum(data['chartdata']['y'])
         return context
+
 
 class StatisticsView(LoginRequiredMixin,
                      TemplateView):
@@ -252,8 +280,6 @@ class StatisticsView(LoginRequiredMixin,
                                   31)
         return dates
 
-
-
     def get_context_data(self, **kwargs):
         context = super(StatisticsView, self).get_context_data(**kwargs)
         data = self._get_chart_data()
@@ -266,7 +292,9 @@ class StatisticsView(LoginRequiredMixin,
             context[k] = ranges[k].strftime("%d-%m-%Y")
         return context
 
+
 class ListCategoryExpensesView(ListExpensesView):
+
     def get_queryset(self):
         category_id = self.kwargs['category_id']
         category = get_object_or_404(Category, pk=category_id)
