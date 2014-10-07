@@ -35,8 +35,12 @@ Installation
  - Copy the ```settings_template.py``` to ```settings.py```.
  - Fill in the missing data in the ```settings.py``` like the database
    configuration, ```SECRET_KEY``` and save the file.
- - In case you don't want to use psycopg or PostgreSQL, feel free to modify
-   the database engine to whatever suits you and it should work just fine.
+ - In case you don't want to use psycopg2 or PostgreSQL, feel free to modify
+   the database engine to whatever suits you and it should work just fine. In
+   case you change the database engine, replace ```psycopg2``` with the
+   name of the database driver that you want to use in ```buildout.cfg```
+   and run ```bin/buildout```. This will install the driver in the buildout
+   environment so that the Xpens application can use it.
  - Navigate back to the top-level ```xpens/``` directory and run
    ```bin/django migrate```. This will create the tables required by Xpens in
    the PostgreSQL database and apply the migrations, if any. Also create the
