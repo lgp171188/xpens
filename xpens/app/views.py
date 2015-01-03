@@ -1,6 +1,8 @@
 from datetime import date, datetime
 import calendar
 
+from dateutil.relativedelta import relativedelta
+
 from django.db.models import Sum
 from django.utils.decorators import method_decorator
 from django.shortcuts import redirect, get_object_or_404
@@ -254,19 +256,12 @@ class StatisticsView(LoginRequiredMixin,
     def _get_custom_range_dates(self):
         dates = {}
         today = date.today()
-        dates["pm_f_date"] = date(today.year,
-                                  today.month-1,
-                                  1)
-        dates["pm_t_date"] = date(today.year,
-                                  today.month-1,
-                                  calendar.monthrange(today.year, today.month-1)[1])
-        dates["cpm_f_date"] = date(today.year,
-                                   today.month-1,
-                                   1)
+        begin_curr_month = today.replace(day=1)
+        dates["pm_f_date"] = begin_curr_month - relativedelta(months=1)
+        dates["pm_t_date"] = begin_curr_month - relativedelta(days=1)
+        dates["cpm_f_date"] = dates["pm_f_date"]
         dates["cpm_t_date"] = today
-        dates["six_f_date"] = date(today.year,
-                                   today.month-5,
-                                   1)
+        dates["six_f_date"] = begin_curr_month - relativedelta(months=6)
         dates["six_t_date"] = today
         dates["cy_f_date"] = date(today.year,
                                   1,

@@ -27,7 +27,7 @@ Xpens - Statistics by Category
           <option value="{% url 'statistics' %}">Current month</option>
           <option value="{% url 'statistics_custom' from_date=pm_f_date to_date=pm_t_date %}">Previous month</option>
           <option value="{% url 'statistics_custom' from_date=cpm_f_date to_date=cpm_t_date %}">Current & previous month</option>
-          <option value="{% url 'statistics_custom' from_date=six_f_date to_date=six_t_date %}">Last 6 months</option>
+          <option value="{% url 'statistics_custom' from_date=six_f_date to_date=six_t_date %}">Current & last 6 months</option>
           <option value="{% url 'statistics_custom' from_date=cy_f_date to_date=cy_t_date %}">Current year</option>
           <option value="{% url 'statistics_custom' from_date=py_f_date to_date=py_t_date %}">Previous year</option>
         </select>
