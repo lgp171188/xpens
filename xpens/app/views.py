@@ -80,8 +80,8 @@ class ListExpensesView(LoginRequiredMixin,
     def get_queryset(self):
         """Tweak the queryset to include only the expenses
         of the current user."""
-        queryset = Expense.objects.filter(user=self.request.user).order_by("-date")
-        return queryset
+        queryset = Expense.objects.filter(user=self.request.user)
+        return queryset.order_by("-date", "-created")
 
     def get_context_data(self, **kwargs):
         context = super(ListExpensesView, self).get_context_data(**kwargs)
@@ -203,8 +203,8 @@ class OverviewView(LoginRequiredMixin,
     def get_queryset(self):
         """Tweak the queryset to include only the expenses
         of the current user."""
-        queryset = Expense.objects.filter(user=self.request.user).order_by("-date")[:5]
-        return queryset
+        queryset = Expense.objects.filter(user=self.request.user)
+        return queryset.order_by("-date", "-created")[:5]
 
     def _get_expenses_current_month_current_user(self):
         today = date.today()
@@ -313,8 +313,8 @@ class ListCategoryExpensesView(ListExpensesView):
     def get_queryset(self):
         category_id = self.kwargs['category_id']
         category = get_object_or_404(Category, pk=category_id)
-        queryset = Expense.objects.filter(category=category).order_by("-date")
-        return queryset
+        queryset = Expense.objects.filter(category=category)
+        return queryset.order_by("-date", "-created")
 
     def get_context_data(self, **kwargs):
         context = super(ListCategoryExpensesView, self).get_context_data(**kwargs)
