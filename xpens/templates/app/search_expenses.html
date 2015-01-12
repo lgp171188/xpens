@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block page_title %}
-Xpens - Expenses
+Xpens - Search Expenses
 {% endblock %}
 
 {% block custom_css %}
@@ -21,20 +21,10 @@ Xpens - Expenses
   <div class="col-md-8">
     <div class="row">
       {% include "app/messages.html" %}
-      <div class="col-md-4">
-        <select class="form-control">
-          <option value="">Select a category</option>
-          <option value="{% url 'list_expenses' %}">All categories</option>
-          {% for category in category_list %}
-          <option value="{% url 'list_expenses_category' category_id=category.id%}">{{ category.name }}</option>
-          {% endfor %}
-        </select>
-        <br/>
-      </div>
       <div style="float:right">
-        <form class="navbar-form" role="search" action="{% url 'search_expenses' %}">
+        <form class="navbar-form" role="search">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search" name="q" id="search-term">
+            <input type="text" class="form-control" placeholder="Search" name="q" id="search-term" value="{{ search_value }}">
             <div class="input-group-btn">
               <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
             </div>
@@ -46,7 +36,7 @@ Xpens - Expenses
       <div class="col-md-12">
         <div class="panel panel-default">
           <div class="panel-heading">
-            All Expenses {% if category_wise %} in {{ category_name }}{% endif %}
+            Search results
             <span style="float:right;"><a href="{% url 'new_expense' %}" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i> New Expense</a></span>
           </div>
           <div class="panel-body">
@@ -75,7 +65,7 @@ Xpens - Expenses
                 {% empty %}
                 <tr>
                   <td colspan="5">
-                    <span style="text-align:center;">No expenses saved</span>
+                    <span style="text-align:center;">No matching expenses</span>
                   </td>
                 </tr>
                 {% endfor %}
@@ -93,6 +83,7 @@ Xpens - Expenses
             {% endif %}
           </div>
         </div>
+        <a href="{% url 'list_expenses' %}" style="float:right;">&lt; Back to All Expenses</a>
       </div>
     </div>
   </div>

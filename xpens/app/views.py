@@ -89,6 +89,26 @@ class ListExpensesView(LoginRequiredMixin,
         return context
 
 
+class SearchExpenseView(ListExpensesView):
+    template_name = "app/search_expenses.html"
+
+    def get_queryset(self):
+        queryset = super(SearchExpenseView, self).get_queryset()
+        search_value = self.request.GET.get('q', None)
+
+        if search_value:
+            queryset = queryset.filter(description__icontains=search_value)
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super(SearchExpenseView, self).get_context_data(**kwargs)
+        if "category_list" in context:
+            del context["category_list"]
+        context['search_value'] = self.request.GET.get('q', '')
+        return context
+
+
 class NewExpenseView(LoginRequiredMixin,
                      SetCurrentUserInFormMixin,
                      CreateView):
