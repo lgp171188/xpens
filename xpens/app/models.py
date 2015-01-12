@@ -8,6 +8,8 @@ class Category(models.Model):
                              related_name="categories")
     description = models.TextField(blank=True,
                                    default="")
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    modified = models.DateTimeField(auto_now=True, null=True)
 
     def __unicode__(self):
         return self.name
@@ -24,3 +26,5 @@ class Expense(models.Model):
                                  on_delete=models.SET_NULL)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              related_name="expenses")
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    modified = models.DateTimeField(auto_now=True, null=True)
