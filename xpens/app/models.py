@@ -14,6 +14,9 @@ class Category(models.Model):
     def __unicode__(self):
         return self.name
 
+    class Meta:
+        unique_together = ("name", "user",)
+
 
 class Expense(models.Model):
     date = models.DateField()
