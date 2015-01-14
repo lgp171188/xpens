@@ -144,6 +144,10 @@ class NewCategoryView(LoginRequiredMixin,
     success_url = reverse_lazy('list_categories')
     success_message = "New Category successfully added"
 
+    def get_form_kwargs(self, *args, **kwargs):
+        return dict(super(NewCategoryView, self).get_form_kwargs(*args, **kwargs),
+                    user=self.request.user)
+
 
 class UpdateExpenseView(LoginRequiredMixin,
                         EditPermissionOwnerUserOnlyMixin,
@@ -176,6 +180,10 @@ class UpdateCategoryView(LoginRequiredMixin,
         if category.user != self.request.user:
             raise PermissionDenied
         return category
+
+    def get_form_kwargs(self, *args, **kwargs):
+        return dict(super(UpdateCategoryView, self).get_form_kwargs(*args, **kwargs),
+                    user=self.request.user)
 
 
 class DeleteExpenseView(LoginRequiredMixin,
