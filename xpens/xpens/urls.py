@@ -62,6 +62,7 @@ urlpatterns = patterns('',
                            StatisticsView.as_view(),
                            name="statistics"),
                        url(r'^captcha/', include('captcha.urls')),
+                       url(r'^api/', include('app.api_urls')),
 )
 
 if settings.REGISTRATION_ENABLED:
