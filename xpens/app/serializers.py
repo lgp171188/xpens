@@ -3,15 +3,15 @@ from rest_framework import serializers
 from .models import Category, Expense
 
 
-class CategorySerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.HyperlinkedModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = Category
-        fields = ('id', 'name', 'description', 'created', 'modified', 'user',)
+        fields = ('url', 'name', 'description', 'created', 'modified', 'user', 'expenses')
 
 
-class ExpenseSerializer(serializers.ModelSerializer):
+class ExpenseSerializer(serializers.HyperlinkedModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     def __init__(self, *args, **kwargs):
@@ -21,4 +21,4 @@ class ExpenseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Expense
-        fields = ('id', 'date', 'amount', 'category', 'description', 'created', 'modified', 'user',)
+        fields = ('url', 'date', 'amount', 'category', 'description', 'created', 'modified', 'user',)

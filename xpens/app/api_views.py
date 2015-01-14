@@ -1,10 +1,21 @@
 from django.http import Http404
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
 from rest_framework import mixins
 from rest_framework import generics
 
 from .models import Category, Expense
 from .serializers import CategorySerializer, ExpenseSerializer
+
+
+class APIRoot(APIView):
+    def get(self, request):
+        return Response({
+            'categories': reverse('category-list', request=request),
+            'expenses': reverse('expense-list', request=request)
+        })
 
 
 class CategoryList(mixins.ListModelMixin,
