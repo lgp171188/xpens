@@ -16,7 +16,7 @@ class Category(models.Model):
 
     class Meta:
         unique_together = ("name", "user",)
-
+        ordering = ['name']
 
 class Expense(models.Model):
     date = models.DateField()
