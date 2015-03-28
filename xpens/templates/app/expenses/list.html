@@ -26,7 +26,7 @@ Xpens - Expenses
           <option value="">Select a category</option>
           <option value="{% url 'list_expenses' %}">All categories</option>
           {% for category in category_list %}
-          <option value="{% url 'list_expenses_category' category_id=category.id%}">{{ category.name }}</option>
+          <option value="{% url 'list_expenses_category' category_id=category.id%}" {% if category_name == category.name %}selected{% endif %}>{{ category.name }}</option>
           {% endfor %}
         </select>
         <br/>
