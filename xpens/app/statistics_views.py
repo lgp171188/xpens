@@ -1,17 +1,19 @@
 from datetime import date, datetime
 
-from dateutil.relativedelta import relativedelta
-
 from django.db.models import Sum
 from django.views.generic import TemplateView
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse_lazy
 
 from .models import Expense
-from .mixins import LoginRequiredMixin
+from .mixins import (
+    LoginRequiredMixin,
+    GetDateRangesMixin,
+)
 
 
 class StatisticsView(LoginRequiredMixin,
+                     GetDateRangesMixin,
                      TemplateView):
     template_name = "app/statistics.html"
 
@@ -57,28 +59,6 @@ class StatisticsView(LoginRequiredMixin,
             },
         }
         return data
-
-    def _get_custom_range_dates(self):
-        dates = {}
-        today = date.today()
-        begin_curr_month = today.replace(day=1)
-        dates["pm_f_date"] = begin_curr_month - relativedelta(months=1)
-        dates["pm_t_date"] = begin_curr_month - relativedelta(days=1)
-        dates["cpm_f_date"] = dates["pm_f_date"]
-        dates["cpm_t_date"] = today
-        dates["six_f_date"] = begin_curr_month - relativedelta(months=6)
-        dates["six_t_date"] = today
-        dates["cy_f_date"] = date(today.year,
-                                  1,
-                                  1)
-        dates["cy_t_date"] = today
-        dates["py_f_date"] = date(today.year-1,
-                                  1,
-                                  1)
-        dates["py_t_date"] = date(today.year-1,
-                                  12,
-                                  31)
-        return dates
 
     def get_context_data(self, **kwargs):
         context = super(StatisticsView, self).get_context_data(**kwargs)

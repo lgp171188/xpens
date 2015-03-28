@@ -18,6 +18,7 @@ class Category(models.Model):
         unique_together = ("name", "user",)
         ordering = ['name']
 
+
 class Expense(models.Model):
     date = models.DateField()
     amount = models.DecimalField(max_digits=20,

@@ -1,5 +1,7 @@
+from datetime import datetime
+
 from django.core.urlresolvers import reverse_lazy
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import (
     CreateView,
     ListView,
@@ -15,7 +17,8 @@ from .forms import NewExpenseForm
 from .mixins import (
     LoginRequiredMixin,
     SetCurrentUserInFormMixin,
-    EditPermissionOwnerUserOnlyMixin
+    EditPermissionOwnerUserOnlyMixin,
+    GetDateRangesMixin,
 )
 
 
@@ -34,36 +37,56 @@ class NewExpenseView(LoginRequiredMixin,
 
 
 class ListExpensesView(LoginRequiredMixin,
+                       GetDateRangesMixin,
                        ListView):
     context_object_name = "expenses"
     model = Expense
     template_name = "app/expenses/list.html"
     paginate_by = 10
 
+
+    def dispatch(self, request, *args, **kwargs):
+        from_date_str = kwargs.get('from_date', None)
+        to_date_str = kwargs.get('to_date', None)
+        self.category_id = kwargs.get('category_id', None)
+        self.from_date = self.to_date = None
+        if from_date_str and to_date_str:
+            try:
+                self.from_date = datetime.strptime(from_date_str,
+                                                   "%d-%m-%Y").date()
+                self.to_date = datetime.strptime(to_date_str,
+                                                 "%d-%m-%Y").date()
+            except ValueError:
+                if self.category_id:
+                    return redirect(reverse_lazy('list_expenses_category',
+                                                 kwargs={'category_id': category_id}))
+                else:
+                    return redirect(reverse_lazy('list_expenses'))
+
+        return super(ListExpensesView, self).dispatch(request,
+                                                      *args,
+                                                      **kwargs)
+
     def get_queryset(self):
         """Tweak the queryset to include only the expenses
         of the current user."""
         queryset = Expense.objects.filter(user=self.request.user)
+        if self.from_date and self.to_date:
+            queryset = queryset.filter(date__gte=self.from_date,
+                                       date__lte=self.to_date)
+        if self.category_id:
+            category = get_object_or_404(Category, pk=self.category_id)
+            queryset = queryset.filter(category=category)
+
         return queryset.order_by("-date", "-created")
 
     def get_context_data(self, **kwargs):
         context = super(ListExpensesView, self).get_context_data(**kwargs)
         context["category_list"] = Category.objects.filter(user=self.request.user)
-        return context
-
-
-class ListCategoryExpensesView(ListExpensesView):
-
-    def get_queryset(self):
-        category_id = self.kwargs['category_id']
-        category = get_object_or_404(Category, pk=category_id)
-        queryset = Expense.objects.filter(category=category)
-        return queryset.order_by("-date", "-created")
-
-    def get_context_data(self, **kwargs):
-        context = super(ListCategoryExpensesView, self).get_context_data(**kwargs)
-        context['category_wise'] = True
-        context['category_name'] = get_object_or_404(Category, pk=self.kwargs['category_id']).name
+        date_ranges = self._get_custom_range_dates()
+        for value in date_ranges:
+            context[value] = date_ranges[value].strftime("%d-%m-%Y")
+        context['category_id'] = self.category_id
         return context
 
 

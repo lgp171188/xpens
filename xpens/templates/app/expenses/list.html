@@ -21,13 +21,42 @@ Xpens - Expenses
   <div class="col-md-8">
     <div class="row">
       {% include "app/messages.html" %}
-      <div class="col-md-4">
+      <div class="col-md-3">
         <select class="form-control">
           <option value="">Select a category</option>
           <option value="{% url 'list_expenses' %}">All categories</option>
           {% for category in category_list %}
           <option value="{% url 'list_expenses_category' category_id=category.id%}" {% if category_name == category.name %}selected{% endif %}>{{ category.name }}</option>
           {% endfor %}
+        </select>
+        <br/>
+      </div>
+      <div class="col-md-3">
+        <select class="form-control">
+          <option value="">Select a period</option>
+          {% if category_id %}
+          {% with "list_expenses_category_date_range" as my_url %}
+          <option value="{% url 'list_expenses_category' category_id=category_id %}">All</option>
+          <option value="{% url my_url category_id=category_id from_date=cm_f_date to_date=today %}">Current month</option>
+          <option value="{% url my_url category_id=category_id from_date=pm_f_date to_date=pm_t_date %}">Previous month</option>
+          <option value="{% url my_url category_id=category_id from_date=cpm_f_date to_date=cpm_t_date %}">Current & previous month</option>
+          <option value="{% url my_url category_id=category_id from_date=six_f_date to_date=six_t_date %}">Current & last 6 months</option>
+          <option value="{% url my_url category_id=category_id from_date=cy_f_date to_date=cy_t_date %}">Current year</option>
+          <option value="{% url my_url category_id=category_id from_date=py_f_date to_date=py_t_date %}">Previous year</option>
+          {% endwith %}
+          {% else %}
+          {% with "list_expenses_date_range" as my_url %}
+          <option value="{% url 'list_expenses' %}">All</option>
+          <option value="{% url my_url from_date=cm_f_date to_date=today %}">Current month</option>
+          <option value="{% url my_url from_date=pm_f_date to_date=pm_t_date %}">Previous month</option>
+          <option value="{% url my_url from_date=cpm_f_date to_date=cpm_t_date %}">Current & previous month</option>
+          <option value="{% url my_url from_date=six_f_date to_date=six_t_date %}">Current & last 6 months</option>
+          <option value="{% url my_url from_date=cy_f_date to_date=cy_t_date %}">Current year</option>
+          <option value="{% url my_url from_date=py_f_date to_date=py_t_date %}">Previous year</option>
+          {% endwith %}
+
+          {% endif %}
+
         </select>
         <br/>
       </div>
