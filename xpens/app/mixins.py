@@ -4,6 +4,7 @@ from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
+
 class LoginRequiredMixin(object):
 
     @method_decorator(login_required)

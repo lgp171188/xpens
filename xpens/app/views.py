@@ -49,21 +49,20 @@ class OverviewView(LoginRequiredMixin,
         current_month_beginning = date(today.year, today.month, 1)
         return Expense.objects.filter(user=self.request.user,
                                       date__gte=current_month_beginning)
+
     def _get_chart_data(self):
-        today = date.today()
-        current_month_beginning = date(today.year, today.month, 1)
         expenses = self._get_expenses_current_month_current_user()
         categories = [category['category__name'] for category in expenses.values('category__name').distinct()]
         aggregate = []
         for category in categories:
             aggregate.append(int(expenses.filter(category__name=category).aggregate(Sum('amount'))['amount__sum']))
         data = {
-            'charttype' : 'pieChart',
-            'chartdata' : {'x': categories, 'y': aggregate},
-            'chartcontainer' : 'piechart_container',
-            'extra' : {
-                "height" : "400",
-                "width" : "600",
+            'charttype': 'pieChart',
+            'chartdata': {'x': categories, 'y': aggregate},
+            'chartcontainer': 'piechart_container',
+            'extra': {
+                "height": "400",
+                "width": "600",
             },
         }
         return data

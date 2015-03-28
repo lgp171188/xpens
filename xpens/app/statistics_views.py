@@ -1,12 +1,11 @@
 from datetime import date, datetime
-import calendar
 
 from dateutil.relativedelta import relativedelta
 
 from django.db.models import Sum
 from django.views.generic import TemplateView
 
-from .models import Expense, Category
+from .models import Expense
 from .mixins import LoginRequiredMixin
 
 
@@ -36,11 +35,11 @@ class StatisticsView(LoginRequiredMixin,
         for category in categories:
             aggregate.append(int(expenses.filter(category__name=category).aggregate(Sum('amount'))['amount__sum']))
         data = {
-            'charttype' : 'pieChart',
-            'chartdata' : {'x': categories, 'y': aggregate},
-            'chartcontainer' : 'piechart_container',
-            'extra' : {
-                'height' : "400",
+            'charttype': 'pieChart',
+            'chartdata': {'x': categories, 'y': aggregate},
+            'chartcontainer': 'piechart_container',
+            'extra': {
+                'height': "400",
             },
         }
         return data

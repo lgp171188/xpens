@@ -32,6 +32,7 @@ class NewExpenseView(LoginRequiredMixin,
         form.fields['category'].queryset = Category.objects.filter(user=self.request.user)
         return form
 
+
 class ListExpensesView(LoginRequiredMixin,
                        ListView):
     context_object_name = "expenses"

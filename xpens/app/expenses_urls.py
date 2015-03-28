@@ -25,4 +25,4 @@ urlpatterns = patterns('',
                        url(r'^(?P<pk>\d+)/delete/$',
                            DeleteExpenseView.as_view(),
                            name="delete_expense"),
-)
+                       )

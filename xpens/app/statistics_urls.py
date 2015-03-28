@@ -9,4 +9,4 @@ urlpatterns = patterns('',
                        url(r'^categories/$',
                            StatisticsView.as_view(),
                            name="statistics"),
-)
+                       )

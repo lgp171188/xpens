@@ -18,4 +18,4 @@ urlpatterns = patterns('',
                        url(r'^(?P<pk>\d+)/delete/$',
                            DeleteCategoryView.as_view(),
                            name="delete_category"),
-)
+                       )
