@@ -86,7 +86,15 @@ class ListExpensesView(LoginRequiredMixin,
         date_ranges = self._get_custom_range_dates()
         for value in date_ranges:
             context[value] = date_ranges[value].strftime("%d-%m-%Y")
-        context['category_id'] = self.category_id
+        if self.category_id:
+            context['category_id'] = self.category_id
+            context['category_wise'] = True
+            context['category_name'] = get_object_or_404(Category,
+                                                         pk=self.kwargs['category_id']).name
+        if self.from_date and self.to_date:
+            context['date_range'] = True
+            context['from_date'] = self.kwargs['from_date']
+            context['to_date'] = self.kwargs['to_date']
         return context
 
 

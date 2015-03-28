@@ -75,7 +75,7 @@ Xpens - Expenses
       <div class="col-md-12">
         <div class="panel panel-default">
           <div class="panel-heading">
-            All Expenses {% if category_wise %} in {{ category_name }}{% endif %}
+            All Expenses {% if category_wise %} in {{ category_name }}{% endif %} {% if date_range %} from {{ from_date }} to {{ to_date }} {% endif %}
             <span style="float:right;"><a href="{% url 'new_expense' %}" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i> New Expense</a></span>
           </div>
           <div class="panel-body">
