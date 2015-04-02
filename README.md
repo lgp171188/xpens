@@ -7,7 +7,7 @@ Pre-requisites
 --------------
 
  - Any fairly modern GNU/Linux operating system.
- - Python 2.7.x (recommended), will work on 2.6.x as well.
+ - Python 2.7.x.
  - GCC and other related build tools.
  - PostgreSQL server with headers (any recent version supported by Django)
  - Python headers (needed only while running buildout for building some eggs)
