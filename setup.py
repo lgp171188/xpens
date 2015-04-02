@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 here = os.path.abspath(os.path.dirname(__file__))
 
 requires = [
-    'django==1.7.7',
+    'django==1.8',
     'psycopg2',
     'django-nvd3==0.7.4',
     'pillow',

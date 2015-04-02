@@ -2,27 +2,26 @@
 Django settings for xpens project.
 
 For more information on this file, see
-https://docs.djangoproject.com/en/1.7/topics/settings/
+https://docs.djangoproject.com/en/1.8/topics/settings/
 
 For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.7/ref/settings/
+https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -51,15 +50,32 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
 )
 
 ROOT_URLCONF = 'xpens.urls'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, "templates"),],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
 WSGI_APPLICATION = 'xpens.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
+# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -72,8 +88,9 @@ DATABASES = {
     }
 }
 
+
 # Internationalization
-# https://docs.djangoproject.com/en/1.7/topics/i18n/
+# https://docs.djangoproject.com/en/1.8/topics/i18n/
 
 LANGUAGE_CODE = 'en-IN'
 
@@ -87,7 +104,7 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.7/howto/static-files/
+# https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
 
@@ -96,14 +113,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "assets"),
 )
-
-# Template files
-
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, "templates"),
-)
-
-# django.contrib.auth application settings
 
 LOGIN_URL = "/login/"
 

@@ -29,6 +29,7 @@ class LoginView(View):
 
 class HomeView(LoginRequiredMixin,
                RedirectView):
+    permanent = False
     url = reverse_lazy('overview')
 
 
