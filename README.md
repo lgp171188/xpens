@@ -54,14 +54,20 @@ Installation
    - Open your favorite browser and navigate to ```localhost:8000``` to access
      the Xpens application. Login using the user account created before.
  - Deploying in production
-   - Set ```DEBUG``` and ```TEMPLATE_DEBUG``` variables in ```settings.py``` to
-     ```False``` to disable debug mode in production.
+   - Copy ```settings_template_production.py``` to ```settings.py``` and edit it
+     as described in the following steps.
+   - Configure the ```ADMINS``` setting.
+   - Set ```DEBUG``` setting to ```False``` to disable debug mode in production.
    - Collect all the static files to the ```STATIC_ROOT``` location
      specified in ```settings.py``` by running ```bin/django collectstatic```.
      This location has to be served under the ```STATIC_URL``` path, by the web
      server.
+   - Run ```bin/django check --deploy``` to view the security recommendations
+     for running Xpens in production. Configure whatever is relevant to your
+     production environment.
    - If using apache2 webserver with mod_wsgi, please check out
-     ```deploy/apache2_mod_wsgi.conf``` file for an example configuration.
+     ```deploy/apache2_mod_wsgi.conf``` file for an example configuration. For
+     more details, please read the mod_wsgi and Django documentation.
 
 Upgrading
 ---------
@@ -70,8 +76,9 @@ Upgrading
    - If there are changes to ```buildout.cfg```, you will have to run
      ```bin/buildout``` from the top-level ```xpens/``` directory to
      install/update the dependencies.
-   - If there are any changes to ```settings_template.py```, you will have to
-     merge them with the ```settings.py``` in your environment.
+   - If there are any changes to ```settings_template.py``` (or
+     ```settings_template_production.py``` if you are deploying Xpens in production),
+     you will have to merge them with the ```settings.py``` in your environment.
    - If there are new apps added to the ```INSTALLED_APPS``` variable in
      ```settings_template.py``` or any new models added, you will have to run
      ```bin/django syncdb``` to update the database, after doing the previous
