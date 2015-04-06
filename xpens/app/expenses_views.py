@@ -44,7 +44,6 @@ class ListExpensesView(LoginRequiredMixin,
     template_name = "app/expenses/list.html"
     paginate_by = 10
 
-
     def dispatch(self, request, *args, **kwargs):
         from_date_str = kwargs.get('from_date', None)
         to_date_str = kwargs.get('to_date', None)
@@ -59,7 +58,8 @@ class ListExpensesView(LoginRequiredMixin,
             except ValueError:
                 if self.category_id:
                     return redirect(reverse_lazy('list_expenses_category',
-                                                 kwargs={'category_id': category_id}))
+                                                 kwargs={'category_id':
+                                                         self.category_id}))
                 else:
                     return redirect(reverse_lazy('list_expenses'))
 

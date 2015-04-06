@@ -1,23 +1,29 @@
 from django.conf.urls import include, url
-from django.views.generic import TemplateView
 from django.core.urlresolvers import reverse_lazy
 from django.conf import settings
 
-from app.views import *
-from user_mgmt.views import *
+from app.views import (
+    LoginView,
+    HomeView,
+    OverviewView,
+)
+from user_mgmt.views import (
+    RegistrationView,
+    PasswordChangeView,
+)
 
 urlpatterns = [
     url(r'^$', HomeView.as_view(), name="home"),
     url(r'^login/$', LoginView.as_view(),
         {
-            "template_name" : "app/login.html",
-            "extra_context" : { "next" : reverse_lazy('home') },
+            "template_name": "app/login.html",
+            "extra_context": {"next": reverse_lazy('home')},
         },
         name="login"),
     url(r'^logout/$',
         'django.contrib.auth.views.logout',
         {
-            "next_page" : reverse_lazy('login'),
+            "next_page": reverse_lazy('login'),
         },
         name="logout"),
     url(r'^password/change/$',

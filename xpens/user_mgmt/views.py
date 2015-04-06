@@ -29,8 +29,6 @@ class PasswordChangeView(LoginRequiredMixin,
     success_message = "Password changed successfully"
     template_name = "user_mgmt/password_change.html"
 
-
-
     def get_form(self, form_class):
         kwargs = self.get_form_kwargs()
         kwargs['user'] = self.request.user
