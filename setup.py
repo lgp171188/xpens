@@ -15,7 +15,7 @@ requires = [
     ]
 
 setup(name='xpens',
-      version='0.3',
+      version='0.4',
       description='An expense logging application written in Python/Django',
       long_description='An expense logging application written in Python/Django',
       license = 'AGPLv3+',
