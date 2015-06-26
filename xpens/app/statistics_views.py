@@ -52,7 +52,7 @@ class StatisticsView(LoginRequiredMixin,
             aggregate.append(int(expenses.filter(category__name=category).aggregate(Sum('amount'))['amount__sum']))
         data = {
             'charttype': 'pieChart',
-            'chartdata': {'x': categories, 'y': aggregate},
+            'chartdata': {'x': categories, 'y1': aggregate, 'extra1': {'tooltip': {'y_start': '', 'y_end': ''}}},
             'chartcontainer': 'piechart_container',
             'extra': {
                 'height': "400",
@@ -64,7 +64,7 @@ class StatisticsView(LoginRequiredMixin,
         context = super(StatisticsView, self).get_context_data(**kwargs)
         data = self._get_chart_data()
         context['data'] = data
-        context['total'] = sum(data['chartdata']['y'])
+        context['total'] = sum(data['chartdata']['y1'])
         context['from_date'] = self.from_date
         context['to_date'] = self.to_date
         ranges = self._get_custom_range_dates()

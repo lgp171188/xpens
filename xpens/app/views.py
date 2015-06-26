@@ -59,18 +59,23 @@ class OverviewView(LoginRequiredMixin,
             aggregate.append(int(expenses.filter(category__name=category).aggregate(Sum('amount'))['amount__sum']))
         data = {
             'charttype': 'pieChart',
-            'chartdata': {'x': categories, 'y': aggregate},
+            'chartdata': {'x': categories, 'y1': aggregate, 'extra1': {'tooltip': {'y_start': '', 'y_end': ''}}},
             'chartcontainer': 'piechart_container',
             'extra': {
                 "height": "400",
                 "width": "600",
+                "x_is_date": False,
+                "x_axis_format": '',
+                'tag_script_js': True,
+                'jquery_on_ready': False,
             },
         }
+
         return data
 
     def get_context_data(self, **kwargs):
         context = super(OverviewView, self).get_context_data(**kwargs)
         data = self._get_chart_data()
         context['data'] = data
-        context['total'] = sum(data['chartdata']['y'])
+        context['total'] = sum(data['chartdata']['y1'])
         return context
