@@ -32,7 +32,8 @@ class NewExpenseView(LoginRequiredMixin,
 
     def get_form(self, form_class):
         form = super(NewExpenseView, self).get_form(form_class)
-        form.fields['category'].queryset = Category.objects.filter(user=self.request.user)
+        queryset = Category.objects.by_user(self.request.user)
+        form.fields['category'].queryset = queryset
         return form
 
 
@@ -82,7 +83,7 @@ class ListExpensesView(LoginRequiredMixin,
 
     def get_context_data(self, **kwargs):
         context = super(ListExpensesView, self).get_context_data(**kwargs)
-        context["category_list"] = Category.objects.filter(user=self.request.user)
+        context["category_list"] = Category.objects.by_user(self.request.user)
         date_ranges = self._get_custom_range_dates()
         for value in date_ranges:
             context[value] = date_ranges[value].strftime("%d-%m-%Y")
@@ -110,7 +111,8 @@ class UpdateExpenseView(LoginRequiredMixin,
 
     def get_form(self, form_class):
         form = super(UpdateExpenseView, self).get_form(form_class)
-        form.fields['category'].queryset = Category.objects.filter(user=self.request.user)
+        queryset = Category.objects.by_user(self.request.user)
+        form.fields['category'].queryset = queryset
         return form
 
 

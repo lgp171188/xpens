@@ -32,7 +32,7 @@ class NewCategoryForm(ModelForm):
 
     def clean_name(self):
         name = self.cleaned_data['name']
-        duplicates = Category.objects.filter(user=self.instance.user, name=name)
+        duplicates = Category.objects.by_user(self.instance.user).by_name(name)
         if self.instance.pk:
             duplicates = duplicates.exclude(pk=self.instance.pk)
         if duplicates:

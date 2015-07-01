@@ -40,26 +40,24 @@ class OverviewView(LoginRequiredMixin,
     template_name = "app/overview.html"
 
     def get_queryset(self):
-        """Tweak the queryset to include only the expenses
-        of the current user."""
-        queryset = Expense.objects.filter(user=self.request.user)
-        return queryset.order_by("-date", "-created")[:5]
-
-    def _get_expenses_current_month_current_user(self):
-        today = date.today()
-        current_month_beginning = date(today.year, today.month, 1)
-        return Expense.objects.filter(user=self.request.user,
-                                      date__gte=current_month_beginning)
+        return Expense.objects.most_recent_expenses_by_user(self.request.user)
 
     def _get_chart_data(self):
-        expenses = self._get_expenses_current_month_current_user()
-        categories = [category['category__name'] for category in expenses.values('category__name').distinct()]
-        aggregate = []
-        for category in categories:
-            aggregate.append(int(expenses.filter(category__name=category).aggregate(Sum('amount'))['amount__sum']))
+        expenses = Expense.objects.by_user_in_current_month(self.request.user)
+        categories = expenses.distinct_category_names()
+        aggregate = expenses.category_wise_total_for(categories)
+
         data = {
             'charttype': 'pieChart',
-            'chartdata': {'x': categories, 'y1': aggregate, 'extra1': {'tooltip': {'y_start': '', 'y_end': ''}}},
+            'chartdata': {
+                'x': categories,
+                'y1': aggregate,
+                'extra1': {
+                    'tooltip': {
+                        'y_start': '',
+                        'y_end': ''}
+                }
+            },
             'chartcontainer': 'piechart_container',
             'extra': {
                 "height": "400",

@@ -25,7 +25,7 @@ class ListCategoriesView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         """Tweak the queryset to include only the categories
         of the current user."""
-        queryset = Category.objects.filter(user=self.request.user)
+        queryset = Category.objects.by_user(self.request.user)
         return queryset
 
 

@@ -42,17 +42,22 @@ class StatisticsView(LoginRequiredMixin,
             self.from_date = datetime.strptime(from_date_str, "%d-%m-%Y").date
             self.to_date = datetime.strptime(to_date_str, "%d-%m-%Y").date
 
-        expenses = Expense.objects.filter(user=self.request.user,
-                                          date__gte=self.from_date,
-                                          date__lte=self.to_date)
-        categories = [category['category__name'] for category in expenses.values('category__name').distinct()]
-
-        aggregate = []
-        for category in categories:
-            aggregate.append(int(expenses.filter(category__name=category).aggregate(Sum('amount'))['amount__sum']))
+        expenses = Expense.objects.by_user_between_dates(self.request.user,
+                                                         self.from_date,
+                                                         self.to_date)
+        categories = expenses.distinct_category_names()
+        aggregate = expenses.category_wise_total_for(categories)
         data = {
             'charttype': 'pieChart',
-            'chartdata': {'x': categories, 'y1': aggregate, 'extra1': {'tooltip': {'y_start': '', 'y_end': ''}}},
+            'chartdata': {
+                'x': categories,
+                'y1': aggregate,
+                'extra1': {
+                    'tooltip': {
+                        'y_start': '',
+                        'y_end': ''}
+                }
+            },
             'chartcontainer': 'piechart_container',
             'extra': {
                 'height': "400",
