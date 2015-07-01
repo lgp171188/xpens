@@ -31,7 +31,7 @@ class StatisticsView(LoginRequiredMixin,
                                                     *args,
                                                     **kwargs)
 
-    def _get_chart_data(self):
+    def _set_date_range(self):
         from_date_str = self.kwargs.get('from_date', None)
         to_date_str = self.kwargs.get('to_date', None)
         if not from_date_str and not to_date_str:
@@ -42,6 +42,9 @@ class StatisticsView(LoginRequiredMixin,
             self.from_date = datetime.strptime(from_date_str, "%d-%m-%Y").date
             self.to_date = datetime.strptime(to_date_str, "%d-%m-%Y").date
 
+
+    def _get_chart_data(self):
+        self._set_date_range()
         expenses = Expense.objects.by_user_between_dates(self.request.user,
                                                          self.from_date,
                                                          self.to_date)
