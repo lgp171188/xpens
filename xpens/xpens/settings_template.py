@@ -38,6 +38,7 @@ INSTALLED_APPS = (
 
     'django_nvd3',
     'captcha',
+    'debug_toolbar'
 
     'app',
 )

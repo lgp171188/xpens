@@ -11,7 +11,8 @@ requires = [
     'pillow',
     'django-simple-captcha',
     'python-dateutil',
-    'pytz'
+    'pytz',
+    'django-debug-toolbar'
     ]
 
 setup(name='xpens',
