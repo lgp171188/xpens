@@ -93,5 +93,37 @@ class UserLoginLogoutTestCase(LiveServerTestCase):
         self.assertEqual(self.browser.current_url,
                          "{}/login/".format(self.live_server_url))
 
+    def test_user_unable_to_login_with_invalid_credentials(self):
+        '''
+        Test that a user cannot login after opening xpens with
+        invalid credentials.
+        '''
+
+        # Craig would like to login into Joe's account by trying to
+        # guess his credentials. So he visits the Xpens home page
+
+        self.browser.get(self.live_server_url + '/')
+
+        # The page redirects to the login page. He sees the login
+        # form and tries entering invalid credentials.
+
+        username_input = self.browser.find_element_by_css_selector(
+            'input#id_username'
+        )
+        password_input = self.browser.find_element_by_css_selector(
+            'input#id_password'
+        )
+        username_input.send_keys('joe')
+        password_input.send_keys('1234')
+
+        self.browser.find_element_by_css_selector(
+            'form input[type="submit"]'
+        ).click()
+
+        self.assertEqual(self.browser.current_url, '{}/login/'.format(self.live_server_url))
+        error_msg = self.browser.find_element_by_css_selector('fieldset p.error')
+        expected_error_msg = '''Please enter a correct username and password. Note that both fields may be case-sensitive.'''
+        self.assertEqual(error_msg.text, expected_error_msg)
+
     def tearDown(self):
         self.browser.quit()
