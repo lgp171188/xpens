@@ -11,3 +11,4 @@
 /develop-eggs/
 .installed.cfg
 xpens/xpens/settings.py
+xpens/static/
