@@ -16,6 +16,10 @@ Pre-requisites
    which is used by ```django-simple-captcha``` which generates the captcha
    on the registration page. In Debian/Ubuntu, the packages to be installed
    are ```libjpeg8-dev``` and ```libfreetype6-dev```.
+ - Latest Vagrant and VirtualBox in case you want to setup the development
+   environment the easy way.
+ - X Server - optional. This is needed if you want to run the functional tests
+   from inside the vagrant VM.
  - Xpens should work on Mac OS X and Windows provided you know how to tweak
    them for the above requirements.
 
@@ -26,29 +30,40 @@ Installation
    using Git.
  - Navigate to the top-level ```xpens/``` directory containing the LICENSE
    and this README file.
- - It is recommended to perform the following steps after creating a virtualenv
-   environment and activating it. This will install all the dependencies of
-   Xpens in an isolated, local python environment without affecting the
-   system python. If not, you will have to prefix the commands with a
-   ```sudo``` or execute them as a root user.
- - Run ```pip install -r requirements.txt```. This will install all the
-   dependencies required to deploy Xpens. In case you want to develop Xpens,
-   run ```pip install -r requirements/local.txt```.
- - Navigate into the ```xpens/xpens/``` folder.
- - Copy the ```settings_template.py``` to ```settings.py```.
- - Fill in the missing data in the ```settings.py``` like the database
-   configuration, ```SECRET_KEY``` and save the file.
- - In case you don't want to use psycopg2 or PostgreSQL, feel free to modify
-   the database engine to whatever suits you and it should work just fine. In
-   case you change the database engine, replace ```psycopg2``` with the
-   name of the database driver that you want to use in
-   ```requirements/common.txt``` and then install it by running
-   ```pip install -r requirements.txt``` from the top-level directory.
- - Navigate to the ```xpens/``` sub-directory in the top-level ```xpens```
-   directory and run ```python manage.py migrate```. This will create the
-   tables required by Xpens in the database and apply the unapplied migrations,
-   if any. Also create the superuser account when prompted. This account
-   will be used to login to the Xpens application.
+ - Setting up a development environment:
+   - The easy way
+     - Just run ```vagrant up```. It will automatically download a Debian Jessie
+       64-bit vagrant box and create a VM using that. It then takes care of
+       creating and configuring a VM for developing Xpens, automating
+       most of the manual steps described below. You can then login into the VM
+       by running ```vagrant ssh```. Then navigate to ```~/xpens/xpens```
+       before following further instructions.
+   - The manual way
+     - It is recommended to perform the following steps after creating a virtualenv
+       environment and activating it. This will install all the dependencies of
+       Xpens in an isolated, local python environment without affecting the
+       system python. If not, you will have to prefix the commands with a
+       ```sudo``` or execute them as a root user.
+     - Run ```pip install -r requirements.txt```. This will install all the
+       dependencies required to deploy Xpens. In case you want to develop Xpens,
+       run ```pip install -r requirements/local.txt```.
+     - Navigate into the ```xpens/xpens/``` folder.
+     - Copy the ```settings_template.py``` to ```settings.py```.
+     - In case you don't want to use psycopg2 or PostgreSQL, feel free to modify
+       the database engine to whatever suits you and it should work just fine. In
+       case you change the database engine, replace ```psycopg2``` with the
+       name of the database driver that you want to use in
+       ```requirements/common.txt``` and then install it by running
+       ```pip install -r requirements.txt``` from the top-level directory.
+     - If needed, modify the database connection settings to match the database
+       and user you have created to connect to it. To run the tests, the user
+       needs to have the ```CREATEDB``` permission. Create the database and
+       the user if they do not exist.
+     - Navigate to the ```xpens/``` sub-directory in the top-level ```xpens```
+       directory and run ```python manage.py migrate```. This will create the
+       tables required by Xpens in the database and apply the unapplied migrations,
+       if any.
+
  - Running in development mode
    - Run the Django development server using ```python manage.py runserver```.
      This will start the server on ```locahost:8000```. Note that this works fine

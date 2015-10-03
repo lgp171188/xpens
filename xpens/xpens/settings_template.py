@@ -18,7 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
+SECRET_KEY = 'abcdefghijklmnopqrstuvwxyz123456789'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,10 +38,14 @@ INSTALLED_APPS = (
 
     'django_nvd3',
     'captcha',
-    'debug_toolbar',
 
     'app',
 )
+
+if DEBUG:
+    INSTALLED_APPS += ('debug_toolbar', )
+    INTERNAL_IPS = ('127.0.0.1', '10.0.2.2',)
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -81,10 +85,10 @@ WSGI_APPLICATION = 'xpens.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
+        'NAME': 'xpens',
+        'USER': 'xpens',
+        'PASSWORD': 'xpens',
+        'HOST': 'localhost',
         'PORT': '',
     }
 }

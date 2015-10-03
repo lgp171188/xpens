@@ -12,3 +12,4 @@
 .installed.cfg
 xpens/xpens/settings.py
 xpens/static/
+.vagrant/
