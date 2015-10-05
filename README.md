@@ -72,9 +72,14 @@ Installation
    - Open your favorite browser and navigate to ```localhost:8000``` to access
      the Xpens application. Login using the user account created before.
  - Deploying in production
+   - Install the dependencies listed in requirements.txt either in a virtualenv
+     environment or to the system python installation.
    - Copy ```settings_template_production.py``` to ```settings.py``` and edit it
      as described in the following steps.
    - Configure the ```ADMINS``` setting.
+   - Set a long random string as the value for ```SECRET_KEY``` setting.
+   - Create the database and the database user. Configure the ```DATABASES```
+     setting.
    - Set ```DEBUG``` setting to ```False``` to disable debug mode in production.
    - Collect all the static files to the ```STATIC_ROOT``` location
      specified in ```settings.py``` by running the command
