@@ -40,6 +40,12 @@ echo "source /usr/share/virtualenvwrapper/virtualenvwrapper.sh" >> ~/.bashrc
 echo "workon xpens-py3" >> ~/.bashrc
 EOF
 
-echo -- <<EOF
+cat <<EOF
+*********************************************************************************
+If it gets here, then the Vagrant VM is provisioned. You should be all set to
+develop Xpens.
 
+Consult the README file for more details.
+
+*********************************************************************************
 EOF
