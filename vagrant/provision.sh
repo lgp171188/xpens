@@ -32,6 +32,8 @@ cp xpens/settings{_template,}.py
 
 python manage.py migrate --noinput
 
+python manage.py collectstatic --noinput
+
 echo "export WORKON_HOME=~/.venvs" >> ~/.bashrc
 echo "source /usr/share/virtualenvwrapper/virtualenvwrapper.sh" >> ~/.bashrc
 echo "workon xpens-py3" >> ~/.bashrc
