@@ -26,6 +26,7 @@ export WORKON_HOME=~/.venvs
 source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 mkvirtualenv -p `which python3` xpens-py3
 cd ~/xpens
+pip install --upgrade pip setuptools
 pip install -r requirements/local.txt
 cd xpens
 cp xpens/settings{_template,}.py
