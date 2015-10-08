@@ -28,6 +28,14 @@ class Command(BaseCommand):
                 help='Specifies the {} for the user'.format(field)
             )
 
+        parser.add_argument(
+            '--noinput',
+            action='store_true',
+            help=('Tells Django not to prompt the user for password. '
+                  'Users created with --noinput will not be able to '
+                  'login until they\'re give a valid password.')
+        )
+
     def handle(self, *args, **options):
         username = options.get(self.UserModel.USERNAME_FIELD)
         password = None
@@ -60,25 +68,25 @@ class Command(BaseCommand):
                     field = self.UserModel._meta.get_field(field_name)
                     user_data[field_name] = field.clean(options[field_name],
                                                         None)
-
-            while password is None:
-                if not password:
-                    password = getpass.getpass()
-                    password2 = getpass.getpass(
-                        force_str('Password (again): ')
-                    )
-
-                    if password != password2:
-                        self.stderr.write(
-                            "Error: Your passwords didn't match."
+            if not options['noinput']:
+                while password is None:
+                    if not password:
+                        password = getpass.getpass()
+                        password2 = getpass.getpass(
+                            force_str('Password (again): ')
                         )
+
+                        if password != password2:
+                            self.stderr.write(
+                                "Error: Your passwords didn't match."
+                            )
+                            password = None
+                            continue
+
+                    if password.strip() == '':
+                        self.stderr.write("Error: Blank passwords aren't allowed")
                         password = None
                         continue
-
-                if password.strip() == '':
-                    self.stderr.write("Error: Blank passwords aren't allowed")
-                    password = None
-                    continue
 
         except exceptions.ValidationError as e:
             raise CommandError('; '.join(e.messages))
