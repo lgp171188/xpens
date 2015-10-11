@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 
 from selenium import webdriver
 
-
 class UserLoginLogoutTestCase(LiveServerTestCase):
 
     def setUp(self):
