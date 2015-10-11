@@ -102,4 +102,4 @@ class Command(BaseCommand):
                 database
             ).create_user(**user_data)
 
-            self.stdout.write("User created succesfully.")
+            self.stdout.write("User created successfully.")
