@@ -1,7 +1,10 @@
+from __future__ import unicode_literals
+
 from datetime import date
 
 from django.db import models
 from django.conf import settings
+from django.utils.encoding import python_2_unicode_compatible
 
 
 class CategoryQuerySet(models.QuerySet):
@@ -13,6 +16,7 @@ class CategoryQuerySet(models.QuerySet):
         return self.filter(user=user)
 
 
+@python_2_unicode_compatible
 class Category(models.Model):
     name = models.CharField(max_length=100)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -24,7 +28,7 @@ class Category(models.Model):
 
     objects = CategoryQuerySet.as_manager()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
