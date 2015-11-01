@@ -48,6 +48,9 @@ Vagrant.configure(2) do |config|
   # selenium on iceweasel (aka Firefox)
   config.ssh.forward_x11 = true
 
+  # Forward the SSH agent to the VM to help with git operations
+  config.ssh.forward_agent = true
+
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
