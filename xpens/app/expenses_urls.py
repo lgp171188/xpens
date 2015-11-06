@@ -11,7 +11,8 @@ from .expenses_views import (
 urlpatterns = [
     url(r'^$', ListExpensesView.as_view(),
         name="list_expenses"),
-    url(r'^(?P<from_date>[0-9]{2}-[0-9]{2}-[0-9]{4})/to/(?P<to_date>[0-9]{2}-[0-9]{2}-[0-9]{4})/$',
+    url(r'^(?P<from_date>[0-9]{2}-[0-9]{2}-[0-9]{4})'
+        r'/to/(?P<to_date>[0-9]{2}-[0-9]{2}-[0-9]{4})/$',
         ListExpensesView.as_view(),
         name="list_expenses_date_range"),
     url(r'^search/$', SearchExpenseView.as_view(),
@@ -19,7 +20,9 @@ urlpatterns = [
     url(r'^category/(?P<category_id>\d+)/$',
         ListExpensesView.as_view(),
         name="list_expenses_category"),
-    url(r'^category/(?P<category_id>\d+)/(?P<from_date>[0-9]{2}-[0-9]{2}-[0-9]{4})/to/(?P<to_date>[0-9]{2}-[0-9]{2}-[0-9]{4})/$',
+    url(r'^category/(?P<category_id>\d+)/'
+        r'(?P<from_date>[0-9]{2}-[0-9]{2}-[0-9]{4})'
+        r'/to/(?P<to_date>[0-9]{2}-[0-9]{2}-[0-9]{4})/$',
         ListExpensesView.as_view(),
         name="list_expenses_category_date_range"),
     url(r'^new/$', NewExpenseView.as_view(),

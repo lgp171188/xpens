@@ -73,7 +73,8 @@ class Expense(models.Model):
     date = models.DateField()
     amount = models.DecimalField(max_digits=20,
                                  decimal_places=2)
-    description = models.TextField()
+    description = models.TextField(blank=True,
+                                   default='')
     category = models.ForeignKey(Category,
                                  related_name="expenses",
                                  null=True,

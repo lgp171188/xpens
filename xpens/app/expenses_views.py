@@ -34,6 +34,8 @@ class NewExpenseView(LoginRequiredMixin,
         form = super(NewExpenseView, self).get_form(form_class)
         queryset = Category.objects.by_user(self.request.user)
         form.fields['category'].queryset = queryset
+        import pdb;
+        pdb.set_trace()
         return form
 
 
@@ -90,8 +92,10 @@ class ListExpensesView(LoginRequiredMixin,
         if self.category_id:
             context['category_id'] = self.category_id
             context['category_wise'] = True
-            context['category_name'] = get_object_or_404(Category,
-                                                         pk=self.kwargs['category_id']).name
+            context['category_name'] = get_object_or_404(
+                Category,
+                pk=self.kwargs['category_id']
+            ).name
         if self.from_date and self.to_date:
             context['date_range'] = True
             context['from_date'] = self.kwargs['from_date']

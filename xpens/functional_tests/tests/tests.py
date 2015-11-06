@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 from selenium import webdriver
 
+
 class UserLoginLogoutTestCase(LiveServerTestCase):
 
     def setUp(self):
@@ -119,9 +120,15 @@ class UserLoginLogoutTestCase(LiveServerTestCase):
             'form input[type="submit"]'
         ).click()
 
-        self.assertEqual(self.browser.current_url, '{}/login/'.format(self.live_server_url))
-        error_msg = self.browser.find_element_by_css_selector('fieldset p.error')
-        expected_error_msg = '''Please enter a correct username and password. Note that both fields may be case-sensitive.'''
+        self.assertEqual(
+            self.browser.current_url,
+            '{}/login/'.format(self.live_server_url)
+        )
+        error_msg = self.browser.find_element_by_css_selector(
+            'fieldset p.error'
+        )
+        expected_error_msg = ('Please enter a correct username and password. '
+                              'Note that both fields may be case-sensitive.')
         self.assertEqual(error_msg.text, expected_error_msg)
 
     def tearDown(self):

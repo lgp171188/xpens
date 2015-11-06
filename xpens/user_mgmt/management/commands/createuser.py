@@ -84,7 +84,9 @@ class Command(BaseCommand):
                             continue
 
                     if password.strip() == '':
-                        self.stderr.write("Error: Blank passwords aren't allowed")
+                        self.stderr.write(
+                            "Error: Blank passwords aren't allowed"
+                        )
                         password = None
                         continue
 

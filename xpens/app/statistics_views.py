@@ -1,6 +1,5 @@
 from datetime import date, datetime
 
-from django.db.models import Sum
 from django.views.generic import TemplateView
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse_lazy
@@ -41,7 +40,6 @@ class StatisticsView(LoginRequiredMixin,
         else:
             self.from_date = datetime.strptime(from_date_str, "%d-%m-%Y").date
             self.to_date = datetime.strptime(to_date_str, "%d-%m-%Y").date
-
 
     def _get_chart_data(self):
         self._set_date_range()

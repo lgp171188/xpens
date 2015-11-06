@@ -1,6 +1,3 @@
-from datetime import date
-
-from django.db.models import Sum
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse_lazy
 from django.conf import settings

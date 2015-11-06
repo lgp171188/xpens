@@ -38,8 +38,10 @@ class NewCategoryView(LoginRequiredMixin,
     success_message = "New Category successfully added"
 
     def get_form_kwargs(self, *args, **kwargs):
-        return dict(super(NewCategoryView, self).get_form_kwargs(*args, **kwargs),
-                    user=self.request.user)
+        return dict(
+            super(NewCategoryView, self).get_form_kwargs(*args, **kwargs),
+            user=self.request.user
+        )
 
 
 class UpdateCategoryView(LoginRequiredMixin,
@@ -59,8 +61,10 @@ class UpdateCategoryView(LoginRequiredMixin,
         return category
 
     def get_form_kwargs(self, *args, **kwargs):
-        return dict(super(UpdateCategoryView, self).get_form_kwargs(*args, **kwargs),
-                    user=self.request.user)
+        return dict(
+            super(UpdateCategoryView, self).get_form_kwargs(*args, **kwargs),
+            user=self.request.user
+        )
 
 
 class DeleteCategoryView(LoginRequiredMixin,
