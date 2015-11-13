@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'django_nvd3',
     'captcha',
 
+    'user_mgmt',
     'app',
 )
 
