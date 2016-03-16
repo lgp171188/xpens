@@ -13,3 +13,4 @@
 xpens/xpens/settings.py
 xpens/static/
 .vagrant/
+venv/
