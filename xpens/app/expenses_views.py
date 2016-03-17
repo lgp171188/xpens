@@ -34,8 +34,6 @@ class NewExpenseView(LoginRequiredMixin,
         form = super(NewExpenseView, self).get_form(form_class)
         queryset = Category.objects.by_user(self.request.user)
         form.fields['category'].queryset = queryset
-        import pdb;
-        pdb.set_trace()
         return form
 
 
