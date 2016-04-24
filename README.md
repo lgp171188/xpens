@@ -122,6 +122,24 @@ Upgrading
      run or deploy Xpens.
 
 
+TODO
+----
+
+Contributions for the following items are welcome.
+
+ - Improve the test coverage by adding more tests.
+ - Make the site responsive so that it works on mobile browsers.
+ - Add more graphs to present the available information in different ways.
+ - Predict spending patterns?
+ - Support adding recurring expenses in order to avoid adding the same expenses
+   periodically.
+ - Sharing expense lists between users.
+ - Convert the backend into a REST API so that it is easier to make a mobile
+   app.
+ - In the mobile app, make it possible to capture and attach images of bills and
+   receipts.
+
+
 Contributing
 ------------
 
