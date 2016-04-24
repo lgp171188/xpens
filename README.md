@@ -3,6 +3,16 @@ Xpens
 
 An expense logging application written in Python/Django.
 
+Screenshots
+-----------
+
+![Overview](/docs/screenshots/Overview.png?raw=true "Overview")
+![Categories](/docs/screenshots/Categories.png?raw=true "Categories")
+![New Expense](/docs/screenshots/NewExpense.png?raw=true "New Expense")
+![Expenses List](/docs/screenshots/ExpensesList.png?raw=true "Expenses List")
+![Statistics](/docs/screenshots/Statistics.png "Statistics")
+
+
 Pre-requisites
 --------------
 
