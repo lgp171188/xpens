@@ -27,7 +27,11 @@ Pre-requisites
    on the registration page. In Debian/Ubuntu, the packages to be installed
    are ```libjpeg8-dev``` and ```libfreetype6-dev```.
  - Latest Vagrant and VirtualBox in case you want to setup the development
-   environment the easy way.
+   environment the easy way. The Debian Jessie vagrant box used by this project
+   no longer bundles VirtualBox guest additions which causes the synced folder
+   functionality to throw an error. So it is recommended to install the vagrant
+   plugin ```vagrant-vbguest``` to automatically install the guest additions
+   if it is not installed.
  - X Server - optional. This is needed if you want to run the functional tests
    from inside the vagrant VM.
  - Xpens should work on Mac OS X and Windows provided you know how to tweak
