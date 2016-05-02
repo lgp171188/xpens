@@ -27,11 +27,7 @@ Pre-requisites
    on the registration page. In Debian/Ubuntu, the packages to be installed
    are ```libjpeg8-dev``` and ```libfreetype6-dev```.
  - Latest Vagrant and VirtualBox in case you want to setup the development
-   environment the easy way. The Debian Jessie vagrant box used by this project
-   no longer bundles VirtualBox guest additions which causes the synced folder
-   functionality to throw an error. So it is recommended to install the vagrant
-   plugin ```vagrant-vbguest``` to automatically install the guest additions
-   if it is not installed.
+   environment the easy way.
  - X Server - optional. This is needed if you want to run the functional tests
    from inside the vagrant VM.
  - Xpens should work on Mac OS X and Windows provided you know how to tweak
@@ -47,11 +43,14 @@ Installation
  - Setting up a development environment:
    - The easy way
      - Just run ```vagrant up```. It will automatically download a Debian Jessie
-       64-bit vagrant box and create a VM using that. It then takes care of
-       creating and configuring a VM for developing Xpens, automating
-       most of the manual steps described below. You can then login into the VM
-       by running ```vagrant ssh```. Then navigate to ```~/xpens/xpens```
-       before following further instructions.
+       64-bit vagrant box and create a VM using that. This command will fail
+       if any of the required plugins like ```vagrant-vbguest``` are not installed
+       and will prompt for their installation. Re-run ```vagrant up``` after
+       installing the required plugins. It then takes care of creating and
+       configuring a VM for developing Xpens, automating most of the manual
+       steps described below. You can then login into the VM by running
+       ```vagrant ssh```. Then navigate to ```~/xpens/xpens``` before
+       following further instructions.
    - The manual way
      - It is recommended to perform the following steps after creating a virtualenv
        environment and activating it. This will install all the dependencies of
