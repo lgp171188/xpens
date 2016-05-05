@@ -6,6 +6,8 @@ from django.db import models
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
 
+from dateutil.relativedelta import relativedelta
+
 
 class CategoryQuerySet(models.QuerySet):
 
@@ -85,3 +87,52 @@ class Expense(models.Model):
     modified = models.DateTimeField(auto_now=True, null=True)
 
     objects = ExpenseQuerySet.as_manager()
+
+
+class RecurringExpense(models.Model):
+    RECURRENCE_CHOICES = (
+        ('D', 'Days'),
+        ('W', 'Weeks'),
+        ('M', 'Months'),
+        ('Y', 'Years')
+    )
+    expense = models.ForeignKey(Expense)
+    start = models.DateField()
+    end = models.DateField()
+    recurrence_type = models.CharField(max_length=1,
+                                       choices=RECURRENCE_CHOICES)
+    every = models.IntegerField()
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+    next = models.DateField()
+    active = models.BooleanField(default=True)
+
+    def save(self, *args, **kwargs):
+        if self.recurrence_type == 'D':
+            delta = relativedelta(days=self.every)
+        elif self.recurrence_type == 'W':
+            delta = relativedelta(days=self.every*7)
+        elif self.recurrence_type == 'M':
+            delta = relativedelta(months=self.next)
+        elif self.recurrence_type == 'Y':
+            delta = relativedelta(years=self.next)
+        self.next = self.expense.date + delta
+        if (self.next > self.end or self.next < self.start):
+            self.active = False
+        else:
+            self.active = True
+        super(RecurringExpense, self).save(*args, **kwargs)
+
+    def set_expense(self, expense):
+        self.expense = expense
+        self.save()
+
+    def create_next_recurrence(self):
+        today = date.today()
+        if (self.next == today and self.active):
+            expense = self.expense
+            expense.pk = None
+            expense.date = date.today()
+            expense.save()
+            self.expense = expense
+            self.save()
