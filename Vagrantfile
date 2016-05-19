@@ -1,15 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-REQUIRED_PLUGINS = %w(vagrant-vbguest)
-exit unless REQUIRED_PLUGINS.all? do |plugin|
-  Vagrant.has_plugin?(plugin) || (
-    puts "The #{plugin} plugin is required. Please install it with:"
-    puts "$ vagrant plugin install #{plugin}"
-    false
-  )
-end
-
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
@@ -21,11 +12,7 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "debian/jessie64"
-
-  # Do not update the VirtualBox guest additions if the version installed in the
-  # VM doesn't match that version installed on the host
-  config.vbguest.auto_update = false
+  config.vm.box = "debian/contrib-jessie64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
