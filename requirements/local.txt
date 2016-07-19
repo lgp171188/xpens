@@ -1,5 +1,5 @@
 -r common.txt
 # Since we need to run tests when developing Xpens
-selenium==2.53.2
+selenium==2.53.6
 django-debug-toolbar==1.4
-ipython==4.2.0
+ipython==5.0.0
