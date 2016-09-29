@@ -1,4 +1,4 @@
-django==1.8.14
+django==1.8.15
 psycopg2==2.6.2
 django-nvd3==0.9.7
 pytz==2016.6.1
