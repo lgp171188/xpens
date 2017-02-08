@@ -1,2 +1,2 @@
 -r common.txt
-selenium==2.53.6
+selenium==3.0.2

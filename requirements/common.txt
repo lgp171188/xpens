@@ -1,7 +1,7 @@
-django==1.8.15
+django==1.8.17
 psycopg2==2.6.2
 django-nvd3==0.9.7
-pytz==2016.6.1
-python-dateutil==2.5.3
-Pillow==3.3.1
-django-simple-captcha==0.5.2
+pytz==2016.10
+python-dateutil==2.6.0
+Pillow==4.0.0
+django-simple-captcha==0.5.3
